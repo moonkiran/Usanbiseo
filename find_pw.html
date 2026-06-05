@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>비밀번호 찾기 - 우산비서</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+      background-color: #f7f9fc;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* 상단 헤더 */
+    .header-area {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 24px 0 16px;
+      border-bottom: 1px solid #e2eaf0;
+      background-color: #f7f9fc;
+    }
+
+    .back-btn {
+      position: absolute;
+      left: 20px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .back-btn svg {
+      width: 24px;
+      height: 24px;
+      stroke: #61c2e6;
+      stroke-width: 2.5;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .page-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #333;
+      letter-spacing: -0.5px;
+    }
+
+    /* 메인 컨테이너 */
+    .main-container {
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      padding: 32px 28px 40px;
+      background-color: #f7f9fc;
+    }
+
+    /* 진행 단계 인디케이터 */
+    .step-indicator {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 40px;
+    }
+
+    .step-line {
+      flex: 1;
+      height: 1.5px;
+      background-color: #d6e8f4;
+    }
+
+    .step-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin: 0 4px;
+    }
+
+    .step-dot.blue {
+      background-color: #61c2e6;
+    }
+
+    .step-dot.yellow {
+      background-color: #fae178;
+      width: 16px;
+      height: 16px;
+    }
+
+    /* 큰 원형 아이콘 (자물쇠 + 새로고침) */
+    .hero-icon-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+
+    .hero-circle {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-color: #61c2e6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 15px rgba(97, 194, 230, 0.3);
+    }
+
+    .hero-circle svg {
+      width: 44px;
+      height: 44px;
+    }
+
+    /* 입력 폼 영역 */
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .input-label {
+      font-size: 14px;
+      font-weight: 700;
+      color: #333;
+      line-height: 20px;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .input-wrapper {
+      position: relative;
+      flex: 1;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      stroke: #7f8c8d;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .input-field {
+      width: 100%;
+      height: 48px;
+      background-color: #ffffff;
+      border: 1.5px solid #7bc6e8;
+      border-radius: 6px;
+      padding: 0 14px 0 44px; /* 아이콘 영역 확보 */
+      font-size: 14px;
+      color: #333;
+      outline: none;
+    }
+
+    .input-field::placeholder {
+      color: #999;
+    }
+
+    .action-btn {
+      width: 76px;
+      height: 48px;
+      background-color: #61c2e6;
+      border: none;
+      border-radius: 10px;
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      flex-shrink: 0;
+      box-shadow: 0 4px 10px rgba(97, 194, 230, 0.3);
+    }
+
+    .action-btn:active {
+      background-color: #55b2d6;
+    }
+
+    /* 구분선 (새 비밀번호 설정) */
+    .divider {
+      position: relative;
+      width: 100%;
+      text-align: center;
+      margin-top: 14px;
+      margin-bottom: 30px;
+    }
+
+    .divider::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background-color: #e2eaf0;
+      z-index: 1;
+    }
+
+    .divider-text {
+      position: relative;
+      z-index: 2;
+      background-color: #f7f9fc;
+      padding: 0 16px;
+      color: #a0aab5;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    /* 비밀번호 입력란 아이콘 보정 */
+    .pw-input-wrapper {
+      position: relative;
+    }
+
+    .pw-input-wrapper .input-icon {
+      left: 14px;
+      z-index: 10;
+    }
+
+    .pw-input-wrapper .input-field {
+      padding-right: 44px;
+      padding-left: 44px;
+      border-color: #cbd5e1; /* 이미지에서 아래쪽 폼은 테두리가 연한 회색 */
+    }
+
+    .toggle-pw {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .toggle-pw svg {
+      width: 22px;
+      height: 22px;
+      fill: none;
+      stroke: #555;
+      stroke-width: 2;
+    }
+
+    /* 하단 로그인 버튼 */
+    .full-btn {
+      width: 100%;
+      height: 52px;
+      background-color: #61c2e6;
+      border: none;
+      border-radius: 8px;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 24px;
+      box-shadow: 0 6px 20px rgba(97, 194, 230, 0.4);
+    }
+
+    .full-btn:active {
+      background-color: #55b2d6;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 상단 헤더 -->
+  <div class="header-area">
+    <button class="back-btn" onclick="history.back()">
+      <svg viewBox="0 0 24 24">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+    </button>
+    <h1 class="page-title">비밀번호 찾기</h1>
+  </div>
+
+  <div class="main-container">
+    <!-- 단계 인디케이터 -->
+    <div class="step-indicator">
+      <div class="step-line"></div>
+      <div class="step-dot blue"></div>
+      <div class="step-line"></div>
+      <div class="step-dot yellow"></div>
+      <div class="step-line"></div>
+      <div class="step-dot blue"></div>
+      <div class="step-line"></div>
+    </div>
+
+    <!-- 큰 아이콘 (자물쇠 + 새로고침) -->
+    <div class="hero-icon-container">
+      <img src="images/find_pw_icon.png" alt="비밀번호 찾기 아이콘" style="width: 80px; height: 80px; display: block;">
+    </div>
+
+    <!-- 이메일 폼 -->
+    <div class="input-group">
+      <label class="input-label">이메일</label>
+      <div class="input-row">
+        <div class="input-wrapper">
+          <svg class="input-icon" viewBox="0 0 24 24">
+            <rect x="3" y="5" width="18" height="14" rx="2" ry="2"/>
+            <polyline points="3 7 12 13 21 7"/>
+          </svg>
+          <input type="email" class="input-field" placeholder="example@umbrella.com">
+        </div>
+        <button class="action-btn" type="button" style="color: #FFE98A;">전송</button>
+      </div>
+    </div>
+
+    <!-- 인증번호 폼 -->
+    <div class="input-group">
+      <label class="input-label">인증번호</label>
+      <div class="input-row">
+        <div class="input-wrapper">
+          <svg class="input-icon" viewBox="0 0 24 24">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <polyline points="9 12 11 14 15 10"/>
+          </svg>
+          <input type="text" class="input-field" placeholder="6자리 숫자 입력">
+        </div>
+        <button class="action-btn" type="button">확인</button>
+      </div>
+    </div>
+
+    <!-- 구분선 -->
+    <div class="divider">
+      <span class="divider-text">새 비밀번호 설정</span>
+    </div>
+
+    <!-- 새 비밀번호 설정 폼 -->
+    <div class="input-group" style="margin-bottom: 16px;">
+      <label class="input-label">새 비밀번호</label>
+      <div class="pw-input-wrapper">
+        <svg class="input-icon" viewBox="0 0 24 24">
+          <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/>
+        </svg>
+        <input id="new-pw" type="password" class="input-field" placeholder="8~16자 영문, 숫자, 특수문자">
+        <button class="toggle-pw" type="button" onclick="togglePw('new-pw', 'eye-1')" aria-label="비밀번호 보기">
+          <svg id="eye-1" viewBox="0 0 24 24">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- 새 비밀번호 확인 폼 -->
+    <div class="input-group">
+      <label class="input-label">새 비밀번호 확인</label>
+      <div class="pw-input-wrapper">
+        <svg class="input-icon" viewBox="0 0 24 24">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+        <input id="confirm-pw" type="password" class="input-field" placeholder="비밀번호를 다시 입력하세요">
+      </div>
+    </div>
+
+    <!-- 하단 로그인 버튼 -->
+    <button class="full-btn" onclick="location.href='login.html'">로그인</button>
+  </div>
+
+  <script>
+    function togglePw(inputId, eyeId) {
+      const pw = document.getElementById(inputId);
+      const icon = document.getElementById(eyeId);
+      if (pw.type === 'password') {
+        pw.type = 'text';
+        icon.innerHTML = `
+          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+          <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+          <line x1="1" y1="1" x2="23" y2="23"/>
+        `;
+      } else {
+        pw.type = 'password';
+        icon.innerHTML = `
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+          <circle cx="12" cy="12" r="3"/>
+        `;
+      }
+    }
+  </script>
+</body>
+</html>
