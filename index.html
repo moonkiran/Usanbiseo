@@ -28,17 +28,21 @@
       var main = document.getElementById("main");
 
       setTimeout(function () {
+        // 스플래시와 메인이 부드럽게 교차하도록 동시에 애니메이션 시작
         splash.classList.add("fade-out");
+        main.classList.remove("hidden");
+        
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            main.classList.add("visible");
+          });
+        });
+
+        // 전환 애니메이션(600ms)이 완전히 완료된 후 스플래시 제거
         setTimeout(function () {
           splash.classList.add("gone");
-          main.classList.remove("hidden");
-          requestAnimationFrame(function () {
-            requestAnimationFrame(function () {
-              main.classList.add("visible");
-            });
-          });
-        }, 800);
-      }, 2000);
+        }, 600);
+      }, 800);
     });
   </script>
   <style>
@@ -100,7 +104,7 @@
 
     #splash {
       opacity: 1;
-      transition: opacity 0.8s ease-in-out;
+      transition: opacity 0.4s ease-in-out;
       z-index: 10;
     }
 
