@@ -334,6 +334,7 @@
       object-fit: contain;
     }
   </style>
+  <script src="js/weather_answers.js"></script>
   <script>
     const bubble = document.getElementById("welcome-bubble");
     let typingTimeout;
@@ -393,6 +394,28 @@
         btn.addEventListener('click', () => {
           typeText(answers[index]);
         });
+      });
+
+      // 4. 입력창 이벤트 연결 (날씨 답변 로직)
+      const inputField = document.querySelector('.input-field');
+      const sendBtn = document.querySelector('.send-btn');
+
+      function handleSendMessage() {
+        const question = inputField.value.trim();
+        if (!question) return;
+
+        inputField.value = ""; // 창 비우기
+        
+        // weather_answers.js 의 getChatAnswer 함수 호출
+        const answer = getChatAnswer(question);
+        typeText(answer);
+      }
+
+      sendBtn.addEventListener('click', handleSendMessage);
+      inputField.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          handleSendMessage();
+        }
       });
     });
   </script>
