@@ -76,18 +76,32 @@
       <div class="section">
         <h2 class="section-title"><span class="dot"></span>시간별 날씨</h2>
         <div class="hourly-scroll">
+          <!-- AM 7 (가장 앞으로 배치) -->
           <div class="hourly-item">
             <div class="h-temp">11°C</div>
-            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
+            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#90a4ae" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
+            </svg>
+            <div class="h-time">7AM</div>
+          </div>
+          <!-- AM 8 (비 시작 - 검정색 아이콘) -->
+          <div class="hourly-item">
+            <div class="h-temp">12°C</div>
+            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
+              <path d="M8 19v2" />
+              <path d="M8 23h.01" />
+              <path d="M12 19v2" />
+              <path d="M12 23h.01" />
+              <path d="M16 19v2" />
+              <path d="M16 23h.01" />
             </svg>
             <div class="h-time">8AM</div>
           </div>
+          <!-- AM 9 (검정색 아이콘) -->
           <div class="hourly-item">
             <div class="h-temp">12°C</div>
-            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
+            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
               <path d="M8 19v2" />
               <path d="M8 23h.01" />
@@ -98,10 +112,10 @@
             </svg>
             <div class="h-time">9AM</div>
           </div>
+          <!-- AM 10 (검정색 아이콘) -->
           <div class="hourly-item">
             <div class="h-temp">13°C</div>
-            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
+            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
               <path d="M8 19v2" />
               <path d="M8 23h.01" />
@@ -112,10 +126,10 @@
             </svg>
             <div class="h-time">10AM</div>
           </div>
+          <!-- AM 11 (검정색 아이콘) -->
           <div class="hourly-item">
             <div class="h-temp">15°C</div>
-            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
+            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
               <path d="M8 19v2" />
               <path d="M8 23h.01" />
@@ -124,12 +138,12 @@
               <path d="M16 19v2" />
               <path d="M16 23h.01" />
             </svg>
-            <div class="h-time" style="color:#b0bec5">11AM</div>
+            <div class="h-time">11AM</div>
           </div>
+          <!-- PM 12 (낮 12시 - 검정색 아이콘) -->
           <div class="hourly-item">
             <div class="h-temp">16°C</div>
-            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
+            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
               <path d="M8 19v2" />
               <path d="M8 23h.01" />
@@ -138,55 +152,181 @@
               <path d="M16 19v2" />
               <path d="M16 23h.01" />
             </svg>
-            <div class="h-time" style="color:#b0bec5">12PM</div>
+            <div class="h-time">12PM</div>
           </div>
+          <!-- PM 1 (비 끝 - 검정색 아이콘) -->
           <div class="hourly-item">
             <div class="h-temp">17°C</div>
-            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <circle cx="12" cy="12" r="4" />
-              <path d="M12 2v2" />
-              <path d="M12 20v2" />
-              <path d="M4.93 4.93l1.41 1.41" />
-              <path d="M17.66 17.66l1.41 1.41" />
-              <path d="M2 12h2" />
-              <path d="M20 12h2" />
-              <path d="M6.34 17.66l-1.41 1.41" />
-              <path d="M19.07 4.93l-1.41 1.41" />
+            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
+              <path d="M8 19v2" />
+              <path d="M8 23h.01" />
+              <path d="M12 19v2" />
+              <path d="M12 23h.01" />
+              <path d="M16 19v2" />
+              <path d="M16 23h.01" />
             </svg>
-            <div class="h-time" style="color:#b0bec5">1PM</div>
+            <div class="h-time">1PM</div>
           </div>
+          <!-- PM 2 (구름 아이콘으로 대체) -->
           <div class="hourly-item">
             <div class="h-temp">20°C</div>
-            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <circle cx="12" cy="12" r="4" />
-              <path d="M12 2v2" />
-              <path d="M12 20v2" />
-              <path d="M4.93 4.93l1.41 1.41" />
-              <path d="M17.66 17.66l1.41 1.41" />
-              <path d="M2 12h2" />
-              <path d="M20 12h2" />
-              <path d="M6.34 17.66l-1.41 1.41" />
-              <path d="M19.07 4.93l-1.41 1.41" />
+            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#90a4ae" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
             </svg>
             <div class="h-time" style="color:#b0bec5">2PM</div>
           </div>
+          <!-- PM 3 (최고 기온 - 해 아이콘) -->
           <div class="hourly-item">
             <div class="h-temp">21°C</div>
-            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
+            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#ffb300" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="5" />
-              <path d="M12 1v2" />
-              <path d="M12 21v2" />
-              <path d="M4.22 4.22l1.42 1.42" />
-              <path d="M18.36 18.36l1.42 1.42" />
-              <path d="M1 12h2" />
-              <path d="M21 12h2" />
-              <path d="M4.22 19.78l1.42-1.42" />
-              <path d="M18.36 5.64l1.42 1.42" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
             </svg>
             <div class="h-time" style="color:#b0bec5">3PM</div>
+          </div>
+          <!-- PM 4 -->
+          <div class="hourly-item">
+            <div class="h-temp">21°C</div>
+            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#ffb300" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <div class="h-time" style="color:#b0bec5">4PM</div>
+          </div>
+          <!-- PM 5 -->
+          <div class="hourly-item">
+            <div class="h-temp">20°C</div>
+            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#ffb300" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <div class="h-time" style="color:#b0bec5">5PM</div>
+          </div>
+          <!-- PM 6 (구름 아이콘으로 대체) -->
+          <div class="hourly-item">
+            <div class="h-temp">18°C</div>
+            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#90a4ae" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
+            </svg>
+            <div class="h-time" style="color:#b0bec5">6PM</div>
+          </div>
+          <!-- PM 7 -->
+          <div class="hourly-item">
+            <div class="h-temp">16°C</div>
+            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#90a4ae" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
+            </svg>
+            <div class="h-time" style="color:#b0bec5">7PM</div>
+          </div>
+          <!-- PM 8 -->
+          <div class="hourly-item">
+            <div class="h-temp">15°C</div>
+            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#90a4ae" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
+            </svg>
+            <div class="h-time" style="color:#b0bec5">8PM</div>
+          </div>
+          <!-- PM 9 -->
+          <div class="hourly-item">
+            <div class="h-temp">14°C</div>
+            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#90a4ae" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
+            </svg>
+            <div class="h-time" style="color:#b0bec5">9PM</div>
+          </div>
+          <!-- PM 10 -->
+          <div class="hourly-item">
+            <div class="h-temp">13°C</div>
+            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#90a4ae" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
+            </svg>
+            <div class="h-time" style="color:#b0bec5">10PM</div>
+          </div>
+          <!-- PM 11 -->
+          <div class="hourly-item">
+            <div class="h-temp">12°C</div>
+            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#90a4ae" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
+            </svg>
+            <div class="h-time" style="color:#b0bec5">11PM</div>
+          </div>
+          <!-- PM 12 (자정) -->
+          <div class="hourly-item">
+            <div class="h-temp">12°C</div>
+            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#90a4ae" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
+            </svg>
+            <div class="h-time" style="color:#b0bec5">12AM</div>
+          </div>
+          <!-- AM 1 -->
+          <div class="hourly-item">
+            <div class="h-temp">11°C</div>
+            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#90a4ae" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
+            </svg>
+            <div class="h-time" style="color:#b0bec5">1AM</div>
+          </div>
+          <!-- AM 2 -->
+          <div class="hourly-item">
+            <div class="h-temp">11°C</div>
+            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#90a4ae" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
+            </svg>
+            <div class="h-time" style="color:#b0bec5">2AM</div>
+          </div>
+          <!-- AM 3 -->
+          <div class="hourly-item">
+            <div class="h-temp">10°C</div>
+            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#90a4ae" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
+            </svg>
+            <div class="h-time" style="color:#b0bec5">3AM</div>
+          </div>
+          <!-- AM 4 -->
+          <div class="hourly-item">
+            <div class="h-temp">10°C</div>
+            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#90a4ae" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
+            </svg>
+            <div class="h-time" style="color:#b0bec5">4AM</div>
+          </div>
+          <!-- AM 5 -->
+          <div class="hourly-item">
+            <div class="h-temp">10°C</div>
+            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#90a4ae" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
+            </svg>
+            <div class="h-time" style="color:#b0bec5">5AM</div>
+          </div>
+          <!-- AM 6 -->
+          <div class="hourly-item">
+            <div class="h-temp">11°C</div>
+            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#90a4ae" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
+            </svg>
+            <div class="h-time" style="color:#b0bec5">6AM</div>
           </div>
         </div>
       </div>
@@ -507,10 +647,40 @@
       overflow-x: auto;
       gap: 20px;
       padding-bottom: 10px;
+      -webkit-overflow-scrolling: touch; /* 모바일 터치 관성 스크롤 */
+      scroll-behavior: smooth;
+      
+      /* 드래그 시 텍스트가 선택되는 현상 방지 */
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      
+      cursor: grab; /* 마우스 커서를 잡기 모양으로 변경 */
     }
 
+    .hourly-scroll:active {
+      cursor: grabbing; /* 드래그 중인 커서 모양 */
+    }
+
+    /* 시간별 날씨 스크롤바 디자인 */
     .hourly-scroll::-webkit-scrollbar {
-      display: none;
+      display: block;
+      height: 4px; /* 슬라이드 바의 두께 */
+    }
+
+    .hourly-scroll::-webkit-scrollbar-track {
+      background: #f1f4f6;
+      border-radius: 10px;
+    }
+
+    .hourly-scroll::-webkit-scrollbar-thumb {
+      background: #bce3f2;
+      border-radius: 10px;
+    }
+
+    .hourly-scroll::-webkit-scrollbar-thumb:hover {
+      background: #61c2e6;
     }
 
     .hourly-item {
@@ -624,6 +794,96 @@
       object-fit: contain;
     }
   </style>
+  <script>
+    // 시간별 날씨 마우스 드래그 및 관성 가로 스크롤 구현
+    const scrollContainer = document.querySelector('.hourly-scroll');
+    let isMouseDown = false;
+    let startXVal;
+    let initialScrollLeft;
+    let velocityX = 0;
+    let lastTime = 0;
+    let momentumRAF;
+
+    scrollContainer.addEventListener('mousedown', (e) => {
+      isMouseDown = true;
+      cancelAnimationFrame(momentumRAF); // 드래그 시작 시 이전 관성 정지
+      scrollContainer.style.scrollBehavior = 'auto'; // 드래그 시 즉각적인 반응을 위해 smooth 해제
+      startXVal = e.pageX - scrollContainer.offsetLeft;
+      initialScrollLeft = scrollContainer.scrollLeft;
+      velocityX = 0;
+      lastTime = performance.now();
+    });
+
+    scrollContainer.addEventListener('mouseleave', () => {
+      if (isMouseDown) {
+        isMouseDown = false;
+        scrollContainer.style.scrollBehavior = 'smooth';
+        startMomentum();
+      }
+    });
+
+    scrollContainer.addEventListener('mouseup', () => {
+      if (isMouseDown) {
+        isMouseDown = false;
+        scrollContainer.style.scrollBehavior = 'smooth';
+        startMomentum(); // 손을 뗐을 때 부드러운 관성 이동 적용
+      }
+    });
+
+    scrollContainer.addEventListener('mousemove', (e) => {
+      if (!isMouseDown) return;
+      e.preventDefault();
+      
+      const x = e.pageX - scrollContainer.offsetLeft;
+      const walk = (x - startXVal) * 1.5; // 드래그 감도 배율
+      const prevScroll = scrollContainer.scrollLeft;
+      
+      scrollContainer.scrollLeft = initialScrollLeft - walk;
+      
+      // 속도 측정 (스크롤 변화량 / 시간 변화량)
+      const now = performance.now();
+      const dt = now - lastTime;
+      if (dt > 0) {
+        velocityX = (scrollContainer.scrollLeft - prevScroll) / dt;
+      }
+      lastTime = now;
+    });
+
+    // 자연스럽게 감속되는 관성 효과 함수
+    function startMomentum() {
+      // 속도가 매우 작아질 때까지 루프
+      if (Math.abs(velocityX) < 0.05) return;
+      
+      scrollContainer.style.scrollBehavior = 'auto'; // 관성 적용 중에도 auto 상태 유지
+      scrollContainer.scrollLeft += velocityX * 16; // 60fps 기준 약 16ms 시간 프레임 반영
+      velocityX *= 0.90; // 감속 마찰 계수 (0.90)
+      
+      momentumRAF = requestAnimationFrame(startMomentum);
+    }
+
+    // 페이지 진입 시 시간별 날씨를 7AM 요소 위치로 즉시 스크롤
+    window.addEventListener('DOMContentLoaded', () => {
+      const items = scrollContainer.querySelectorAll('.hourly-item');
+      let targetElement = null;
+      
+      // 7AM 텍스트를 담은 요소 검색
+      items.forEach(item => {
+        const timeText = item.querySelector('.h-time');
+        if (timeText && timeText.textContent.trim() === '7AM') {
+          targetElement = item;
+        }
+      });
+      
+      if (targetElement) {
+        // 부드러운 애니메이션 스크롤 일시 정지 후 스크롤 좌표 변경
+        scrollContainer.style.scrollBehavior = 'auto';
+        const offsetLeft = targetElement.offsetLeft - scrollContainer.offsetLeft;
+        scrollContainer.scrollLeft = offsetLeft - 20; // 좌측 마진 20px 감안
+        // 스크롤 설정 완료 후 다시 smooth 원복
+        scrollContainer.style.scrollBehavior = 'smooth';
+      }
+    });
+  </script>
 </body>
 
 </html>
