@@ -33,11 +33,7 @@
       <!-- 우비 캐릭터 및 말풍선 -->
       <div class="welcome-section">
         <img src="images/duck_character.png" alt="우비" class="duck-char">
-        <div class="speech-bubble">
-          안녕하세요! 저는 우비예요<br>
-          오늘 날씨 관련 궁금한 게 있으시면<br>
-          뭐든 물어보세요!
-        </div>
+        <div class="speech-bubble" id="welcome-bubble"></div>
       </div>
 
       <!-- AI 추천 질문 -->
@@ -72,7 +68,7 @@
         <span>일정</span>
       </a>
       <a href="wubitalk.html" class="nav-item active">
-        <img src="images/nav_wubitalk.png" alt="우비톡 아이콘" class="nav-icon">
+        <img src="images/nav_wubitalk_active.png" alt="우비톡 아이콘" class="nav-icon">
         <span>우비톡</span>
       </a>
       <a href="#" class="nav-item">
@@ -338,5 +334,67 @@
       object-fit: contain;
     }
   </style>
+  <script>
+    const bubble = document.getElementById("welcome-bubble");
+    let typingTimeout;
+
+    // 공통 타이핑 애니메이션 함수
+    function typeText(text) {
+      clearTimeout(typingTimeout);
+      let currentIdx = 0;
+      let isTag = false;
+      let htmlContent = "";
+      bubble.innerHTML = ""; // 초기화
+
+      function typeWriter() {
+        if (currentIdx < text.length) {
+          const char = text.charAt(currentIdx);
+          
+          if (char === "<") isTag = true;
+          
+          htmlContent += char;
+          bubble.innerHTML = htmlContent;
+          currentIdx++;
+          
+          if (isTag) {
+            if (char === ">") {
+              isTag = false;
+              typeWriter(); // 태그가 끝난 직후엔 다음 글자를 바로 씀
+            } else {
+              typeWriter(); // 태그 내부 문자는 바로바로 넘김
+            }
+          } else {
+            // 일반 글자 타이핑 속도 (40ms)
+            typingTimeout = setTimeout(typeWriter, 40);
+          }
+        }
+      }
+      
+      typeWriter();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      // 1. 초기 메시지 출력
+      setTimeout(() => {
+        typeText("안녕하세요! 저는 우비예요<br>오늘 날씨 관련 궁금한 게 있으시면<br>뭐든 물어보세요!");
+      }, 300);
+
+      // 2. AI 추천 질문 대답 리스트 (오후 1시부터 비 그침 가정)
+      const answers = [
+        "오후 1시부터 비가 그칠 예정이니,<br>그 이후에 빨래를 돌리시는 것을 추천해요!",
+        "오전까지는 비가 오기 때문에<br>세차는 비가 그치는 오후 1시 이후에 하시는 게 좋아요!",
+        "오후 1시부터 비가 그치니,<br>그 이후부터 쾌적하게 야외운동을 즐기실 수 있어요!",
+        "오후 1시부터는 비가 그치기 때문에,<br>나중에 짐이 되지 않게 휴대성이 좋은 작은 우산을 챙기시는 걸 추천해요!"
+      ];
+
+      // 3. 버튼 클릭 이벤트 연결
+      const recBtns = document.querySelectorAll('.rec-btn');
+      recBtns.forEach((btn, index) => {
+        btn.addEventListener('click', () => {
+          typeText(answers[index]);
+        });
+      });
+    });
+  </script>
 </body>
 </html>
