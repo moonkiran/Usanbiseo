@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>위치 설정 - 우산비서</title>
+  <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="app-container">
+    <!-- 상단 헤더 -->
+    <header class="app-header">
+      <button class="back-btn" onclick="history.back()">
+        <svg viewBox="0 0 24 24">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+      </button>
+      <h1 class="page-title">위치 설정</h1>
+      <div class="profile-icon">
+        <img src="images/duck_profile.png" alt="프로필">
+      </div>
+    </header>
+
+    <main class="settings-content">
+      <!-- 안내 카드 -->
+      <div class="notice-card">
+        <p class="notice-text">
+          현재 위치 권한이 거부되었습니다.<br>
+          원활한 날씨 알림을 위해 위치를 수동으로 입력하거나 권한을 허용해 주세요.
+        </p>
+        <a href="#" class="permission-link">위치 권한 설정</a>
+      </div>
+
+      <!-- 위치 입력 -->
+      <div class="location-input-section">
+        <div class="section-title">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          <h2>위치</h2>
+        </div>
+        
+        <div class="input-row">
+          <div class="input-col">
+            <input type="text" placeholder="도로명 주소 입력" class="loc-input">
+            <input type="text" placeholder="상세 주소 입력" class="loc-input">
+          </div>
+          <button class="done-btn">완료</button>
+        </div>
+      </div>
+
+      <!-- 지도 맵 영역 -->
+      <div class="map-area">
+        <!-- 배경용 인라인 SVG 맵 그래픽 (가짜 맵) -->
+        <svg class="map-bg" width="100%" height="100%" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="300" fill="#eaeaea"/>
+          <path d="M0,0 L100,0 L250,150 L250,300 L0,300 Z" fill="#e0e0e0"/>
+          <path d="M0,50 Q100,100 50,300" fill="none" stroke="#a9cdf0" stroke-width="24"/>
+          <path d="M150,0 L300,150 L400,100 L400,0 Z" fill="#c3e0af"/>
+          <path d="M250,200 L400,150 L400,300 L200,300 Z" fill="#c3e0af"/>
+          <path d="M-50,150 L450,50" fill="none" stroke="#ffffff" stroke-width="16"/>
+          <path d="M100,-50 L250,350" fill="none" stroke="#ffffff" stroke-width="16"/>
+          <path d="M200,100 L450,300" fill="none" stroke="#ffffff" stroke-width="16"/>
+          <path d="M50,150 L150,350" fill="none" stroke="#ffffff" stroke-width="12"/>
+        </svg>
+
+        <!-- 가운데 핀 -->
+        <div class="map-pin">
+           <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path></svg>
+        </div>
+        
+        <!-- 현재 위치로 검색하기 버튼 -->
+        <button class="current-loc-btn">
+          <svg viewBox="0 0 24 24" class="crosshair-icon"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+          현재 위치로 검색하기
+        </button>
+      </div>
+
+      <!-- 하단 저장하기 버튼 -->
+      <button class="save-btn" onclick="alert('위치가 저장되었습니다.')">저장하기</button>
+    </main>
+  </div>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, input, button {
+      font-family: 'Manrope', -apple-system, sans-serif;
+    }
+
+    body {
+      background-color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+    }
+
+    .app-container {
+      width: 100%;
+      max-width: 400px;
+      min-height: 100vh;
+      background-color: #f7f9fc;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 헤더 */
+    .app-header {
+      background-color: #61c2e6;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 20px;
+      color: #ffffff;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .back-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .back-btn svg {
+      width: 22px;
+      height: 22px;
+      stroke: #ffffff;
+      stroke-width: 2.5;
+      fill: none;
+    }
+
+    .page-title {
+      font-family: 'Jua', sans-serif;
+      font-size: 22px;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+    }
+
+    .profile-icon {
+      width: 32px;
+      height: 32px;
+      background-color: #fff;
+      border-radius: 50%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .profile-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* 메인 콘텐츠 영역 */
+    .settings-content {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 거부 안내 카드 */
+    .notice-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 24px 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+
+    .notice-text {
+      font-size: 13px;
+      color: #777;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .permission-link {
+      display: inline-block;
+      color: #61c2e6;
+      font-weight: 700;
+      font-size: 15px;
+      text-decoration: underline;
+    }
+
+    /* 위치 입력 섹션 */
+    .location-input-section {
+      margin-top: 30px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .section-title svg {
+      width: 20px;
+      height: 20px;
+      stroke: #61c2e6;
+      fill: none;
+      stroke-width: 2;
+    }
+
+    .section-title h2 {
+      font-family: 'Jua', sans-serif;
+      font-size: 22px;
+      color: #111;
+      font-weight: 400;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .input-col {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .loc-input {
+      width: 100%;
+      height: 48px;
+      border: 1px solid #d5d9df;
+      border-radius: 6px;
+      padding: 0 14px;
+      font-size: 15px;
+      color: #333;
+      background: #fff;
+    }
+
+    .loc-input::placeholder {
+      color: #aaa;
+    }
+
+    .loc-input:focus {
+      outline: none;
+      border-color: #61c2e6;
+    }
+
+    .done-btn {
+      width: 80px;
+      background: #61c2e6;
+      color: #fff;
+      font-family: 'Jua', sans-serif;
+      font-size: 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(97, 194, 230, 0.3);
+      transition: background 0.2s;
+    }
+
+    .done-btn:active {
+      background: #4ab1d6;
+    }
+
+    /* 지도 영역 */
+    .map-area {
+      margin-top: 24px;
+      height: 260px;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid #e0e5ea;
+      background: #eaeaea;
+    }
+
+    .map-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .map-pin {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -100%);
+      z-index: 2;
+    }
+
+    .map-pin svg {
+      width: 38px;
+      height: 38px;
+      fill: #61c2e6;
+      stroke: #fff;
+      stroke-width: 1;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    }
+
+    .current-loc-btn {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      width: calc(100% - 32px);
+      max-width: 280px;
+      height: 52px;
+      background: #ffffff;
+      border: none;
+      border-radius: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #111;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      cursor: pointer;
+    }
+
+    .crosshair-icon {
+      width: 20px;
+      height: 20px;
+      stroke: #61c2e6;
+      stroke-width: 2.5;
+      fill: none;
+    }
+
+    /* 저장하기 버튼 */
+    .save-btn {
+      width: 100%;
+      height: 54px;
+      background: #61c2e6;
+      color: #ffffff;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      margin-top: 30px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .save-btn:active {
+      background: #4ab1d6;
+    }
+
+  </style>
+</body>
+
+</html>
