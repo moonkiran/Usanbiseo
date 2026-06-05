@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>대시보드 - 우산비서</title>
+  <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <div class="dashboard-container">
+    <!-- 배경 비 내리는 효과 -->
+    <div class="rain-layer" id="rainLayer"></div>
+
+    <script>
+      // 자바스크립트로 빗방울 생성
+      const rainLayer = document.getElementById('rainLayer');
+      for (let i = 0; i < 20; i++) {
+        const drop = document.createElement('div');
+        drop.className = 'rain-drop';
+        drop.style.left = Math.random() * 100 + '%';
+        drop.style.animationDuration = (Math.random() * 0.5 + 0.5) + 's';
+        drop.style.animationDelay = (Math.random() * 2) + 's';
+        rainLayer.appendChild(drop);
+      }
+    </script>
+
+    <!-- 상단 바 -->
+    <div class="top-bar">
+      <div class="location">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+        </svg>
+        <span>서울특별시 강남구</span>
+      </div>
+      <button class="alert-btn">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1-7v2h2v-2h-2zm0-8v6h2V7h-2z" fill="#333" stroke="none"/>
+        </svg>
+        우산 챙기세요!
+      </button>
+    </div>
+
+    <!-- 캐릭터 영역 -->
+    <div class="message-area">
+      <div class="speech-bubble">
+        오후 12시~4시까지 계속해서 비가 내릴 예정이에요
+        <span class="highlight">우산 꼭 잊지 말아요</span>
+      </div>
+      <div class="character">
+        <img src="images/duck_character.png" alt="우비 오리 캐릭터" style="width: 70px; height: 90px; object-fit: contain;">
+      </div>
+    </div>
+
+    <!-- 날씨 표시 -->
+    <div class="current-weather">
+      <div class="weather-desc">Raining Now</div>
+      <div class="temp-display">
+        <span class="temp-main">12</span><span class="temp-unit">°C</span>
+        <div class="temp-highlow">
+          <div class="hl-item">↑ 21°C</div>
+          <div class="hl-item">↓ 10°C</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 정보 카드 -->
+    <div class="bottom-sheet">
+      <!-- 시간별 날씨 -->
+      <div class="section">
+        <h2 class="section-title"><span class="dot"></span>시간별 날씨</h2>
+        <div class="hourly-scroll">
+          <div class="hourly-item">
+            <div class="h-temp">11°C</div>
+            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>
+            </svg>
+            <div class="h-time">8AM</div>
+          </div>
+          <div class="hourly-item">
+            <div class="h-temp">12°C</div>
+            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/><path d="M8 19v2"/><path d="M8 23h.01"/><path d="M12 19v2"/><path d="M12 23h.01"/><path d="M16 19v2"/><path d="M16 23h.01"/>
+            </svg>
+            <div class="h-time">9AM</div>
+          </div>
+          <div class="hourly-item">
+            <div class="h-temp">13°C</div>
+            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/><path d="M8 19v2"/><path d="M8 23h.01"/><path d="M12 19v2"/><path d="M12 23h.01"/><path d="M16 19v2"/><path d="M16 23h.01"/>
+            </svg>
+            <div class="h-time">10AM</div>
+          </div>
+          <div class="hourly-item">
+            <div class="h-temp">15°C</div>
+            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/><path d="M8 19v2"/><path d="M8 23h.01"/><path d="M12 19v2"/><path d="M12 23h.01"/><path d="M16 19v2"/><path d="M16 23h.01"/>
+            </svg>
+            <div class="h-time" style="color:#b0bec5">11AM</div>
+          </div>
+          <div class="hourly-item">
+            <div class="h-temp">16°C</div>
+            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/><path d="M8 19v2"/><path d="M8 23h.01"/><path d="M12 19v2"/><path d="M12 23h.01"/><path d="M16 19v2"/><path d="M16 23h.01"/>
+            </svg>
+            <div class="h-time" style="color:#b0bec5">12PM</div>
+          </div>
+          <div class="hourly-item">
+            <div class="h-temp">17°C</div>
+            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.93 4.93l1.41 1.41"/><path d="M17.66 17.66l1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M6.34 17.66l-1.41 1.41"/><path d="M19.07 4.93l-1.41 1.41"/>
+            </svg>
+            <div class="h-time" style="color:#b0bec5">1PM</div>
+          </div>
+          <div class="hourly-item">
+            <div class="h-temp">20°C</div>
+            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.93 4.93l1.41 1.41"/><path d="M17.66 17.66l1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M6.34 17.66l-1.41 1.41"/><path d="M19.07 4.93l-1.41 1.41"/>
+            </svg>
+            <div class="h-time" style="color:#b0bec5">2PM</div>
+          </div>
+          <div class="hourly-item">
+            <div class="h-temp">21°C</div>
+            <svg class="h-icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"/><path d="M12 1v2"/><path d="M12 21v2"/><path d="M4.22 4.22l1.42 1.42"/><path d="M18.36 18.36l1.42 1.42"/><path d="M1 12h2"/><path d="M21 12h2"/><path d="M4.22 19.78l1.42-1.42"/><path d="M18.36 5.64l1.42 1.42"/>
+            </svg>
+            <div class="h-time" style="color:#b0bec5">3PM</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 오늘의 상세 정보 -->
+      <div class="section">
+        <h2 class="section-title"><span class="dot"></span>오늘의 상세 정보</h2>
+        <div class="detail-grid">
+          <div class="detail-card">
+            <div class="d-label">강수 확률</div>
+            <div class="d-value">85%</div>
+            <div class="d-sub">오전 중 집중</div>
+          </div>
+          <div class="detail-card">
+            <div class="d-label">바람</div>
+            <div class="d-value">4.2m/s</div>
+            <div class="d-sub">북동풍</div>
+          </div>
+          <div class="detail-card">
+            <div class="d-label">미세먼지</div>
+            <div class="d-value orange">나쁨</div>
+            <div class="d-sub gray">PM2.5 · 87u8</div>
+          </div>
+          <div class="detail-card">
+            <div class="d-label">자외선 지수</div>
+            <div class="d-value">보통</div>
+            <div class="d-sub">오전 중 집중</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 하단 네비게이션 -->
+    <nav class="bottom-nav">
+      <a href="#" class="nav-item active">
+        <svg class="nav-icon" viewBox="0 0 24 24">
+          <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>
+        </svg>
+        <span>날씨</span>
+      </a>
+      <a href="#" class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 24 24">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+          <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+        <span>일정</span>
+      </a>
+      <a href="#" class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/>
+        </svg>
+        <span>우비톡</span>
+      </a>
+      <a href="#" class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+        <span>설정</span>
+      </a>
+    </nav>
+  </div>
+
+<style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #f7f9fc;
+      display: flex;
+      justify-content: center;
+      font-family: 'Manrope', -apple-system, sans-serif;
+    }
+
+    /* 전역 폰트 오버라이드 - 이전 페이지들과 규칙 통일 */
+    body, input, button, select, textarea {
+      font-family: 'Manrope', sans-serif;
+    }
+
+    .dashboard-container {
+      width: 100%;
+      max-width: 400px;
+      min-height: 100vh;
+      background: linear-gradient(180deg, #3a5c96 0%, #769fcf 45%, #c4d7e8 100%);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      padding-bottom: 65px; /* 네비게이션 바 공간 */
+    }
+
+    /* 비 내리는 효과 */
+    .rain-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .rain-drop {
+      position: absolute;
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.7));
+      width: 1.5px;
+      height: 25px;
+      border-radius: 2px;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-50px); opacity: 0; }
+      10% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { transform: translateY(400px); opacity: 0; }
+    }
+
+    /* 상단 바 */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 24px 20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .location {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .location svg {
+      width: 18px;
+      height: 18px;
+      fill: #fae178;
+    }
+
+    .alert-btn {
+      background-color: #fae178;
+      border: none;
+      border-radius: 20px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #333;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .alert-btn svg {
+      width: 14px;
+      height: 14px;
+      stroke: #333;
+      stroke-width: 2;
+      fill: none;
+    }
+
+    /* 캐릭터와 말풍선 영역 */
+    .message-area {
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-start;
+      margin-top: 10px;
+      padding: 0 20px;
+      position: relative;
+      z-index: 10;
+      gap: 10px;
+    }
+
+    .speech-bubble {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 12px 18px;
+      font-size: 11px;
+      text-align: center;
+      color: #555;
+      position: relative;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      font-weight: 500;
+      line-height: 1.4;
+      margin-top: 10px;
+    }
+
+    .speech-bubble::after {
+      content: "";
+      position: absolute;
+      right: 15px;
+      bottom: -8px;
+      border-width: 10px 10px 0 0;
+      border-style: solid;
+      border-color: #ffffff transparent transparent transparent;
+    }
+
+    .speech-bubble .highlight {
+      color: #4a90d9;
+      font-weight: 700;
+      display: block;
+      margin-top: 2px;
+    }
+
+    .character img {
+      width: 70px;
+      height: auto;
+      object-fit: contain;
+    }
+
+    /* 현재 날씨 요약 */
+    .current-weather {
+      padding: 20px 24px 30px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .weather-desc {
+      font-size: 22px;
+      color: #2b3a55;
+      margin-bottom: -10px;
+    }
+
+    .temp-display {
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .temp-main {
+      font-size: 100px;
+      font-weight: 800;
+      color: #0b1f38;
+      line-height: 0.9;
+      letter-spacing: -3px;
+    }
+
+    .temp-unit {
+      font-size: 32px;
+      font-weight: 700;
+      color: #3b2a5a;
+      margin-bottom: 20px;
+      margin-left: 2px;
+    }
+
+    .temp-highlow {
+      margin-left: auto;
+      margin-bottom: 25px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .hl-item {
+      display: flex;
+      align-items: center;
+      font-size: 18px;
+      color: #333;
+      font-weight: 500;
+      gap: 6px;
+    }
+
+    /* 하단 백색 시트 */
+    .bottom-sheet {
+      background: #ffffff;
+      border-radius: 30px 30px 0 0;
+      padding: 32px 24px;
+      flex-grow: 1;
+      position: relative;
+      z-index: 20;
+    }
+
+    .section {
+      margin-bottom: 32px;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #111;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      background: #61c2e6;
+      border-radius: 50%;
+    }
+
+    /* 시간별 날씨 스크롤 */
+    .hourly-scroll {
+      display: flex;
+      overflow-x: auto;
+      gap: 20px;
+      padding-bottom: 10px;
+    }
+
+    .hourly-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .hourly-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 40px;
+    }
+
+    .h-temp {
+      font-size: 15px;
+      font-weight: 700;
+      color: #555;
+    }
+
+    .h-icon {
+      width: 26px;
+      height: 26px;
+      margin: 10px 0;
+    }
+
+    .h-time {
+      font-size: 12px;
+      font-weight: 600;
+      color: #61c2e6;
+    }
+
+    /* 오늘의 상세 정보 그리드 */
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .detail-card {
+      background: #f4f8fb;
+      border-radius: 16px;
+      padding: 18px 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .d-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #666;
+      margin-bottom: 8px;
+    }
+
+    .d-value {
+      font-size: 22px;
+      font-weight: 800;
+      color: #111;
+      margin-bottom: 8px;
+    }
+
+    .d-value.orange {
+      color: #f7931e;
+    }
+
+    .d-sub {
+      font-size: 12px;
+      font-weight: 600;
+      color: #61c2e6;
+    }
+
+    .d-sub.gray {
+      color: #90a4ae;
+    }
+
+    /* 하단 네비게이션 바 */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      max-width: 400px;
+      height: 65px;
+      background: #ffffff;
+      border-top: 1px solid #f0f0f0;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      color: #b0bec5;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .nav-item.active {
+      color: #61c2e6;
+    }
+
+    .nav-icon {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+    }
+
+  </style>
+</body>
+</html>
