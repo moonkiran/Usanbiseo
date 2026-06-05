@@ -1,182 +1,106 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>회원가입 - 우산비서</title>
   <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
 </head>
-
 <body>
-  <div class="signup-container">
 
-    <!-- 타이틀 -->
+  <!-- 상단 헤더 -->
+  <div class="header-area">
+    <button class="back-btn" onclick="history.back()">
+      <svg viewBox="0 0 24 24">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+    </button>
     <h1 class="signup-title">회원가입</h1>
+  </div>
 
+  <div class="main-container">
     <!-- 단계 인디케이터 -->
     <div class="step-indicator">
       <div class="step-line"></div>
       <div class="step-dot blue"></div>
       <div class="step-line"></div>
-      <div class="step-dot blue"></div>
-      <div class="step-line"></div>
       <div class="step-dot yellow"></div>
       <div class="step-line"></div>
+      <div class="step-dot blue"></div>
+      <div class="step-line"></div>
     </div>
 
-    <!-- 입력 폼 영역 -->
-    <form class="form-section" id="signupForm" onsubmit="event.preventDefault(); doSignup();">
-      <!-- 닉네임 입력 -->
-      <div class="input-group">
-        <label class="input-label" for="username">닉네임</label>
-        <input id="username" class="input-field" type="text" placeholder="닉네임을 입력하세요" required>
-      </div>
-
-      <!-- 이메일 입력 -->
-      <div class="input-group">
-        <label class="input-label" for="email">이메일</label>
-        <input id="email" class="input-field" type="email" placeholder="example@email.com" required>
-      </div>
-
-      <!-- 비밀번호 입력 -->
-      <div class="input-group">
-        <label class="input-label" for="password">비밀번호</label>
-        <div class="password-wrapper">
-          <input id="password" class="input-field" type="password" placeholder="비밀번호 (8자 이상)" required minlength="8">
-          <button class="toggle-pw" type="button" onclick="togglePassword('password', 'eye-icon')" aria-label="비밀번호 보기">
-            <svg id="eye-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-              <circle cx="12" cy="12" r="3" />
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      <!-- 비밀번호 확인 입력 -->
-      <div class="input-group">
-        <label class="input-label" for="password-confirm">비밀번호 확인</label>
-        <div class="password-wrapper">
-          <input id="password-confirm" class="input-field" type="password" placeholder="비밀번호 확인" required>
-          <button class="toggle-pw" type="button" onclick="togglePassword('password-confirm', 'eye-icon-confirm')"
-            aria-label="비밀번호 확인 보기">
-            <svg id="eye-icon-confirm" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-              <circle cx="12" cy="12" r="3" />
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      <!-- 가입 완료 버튼 -->
-      <button class="submit-btn" type="submit">가입 완료</button>
-    </form>
-
-    <!-- OR 구분선 -->
-    <div class="or-divider">
-      <div class="or-divider-line"></div>
-      <span class="or-text">OR</span>
-      <div class="or-divider-line"></div>
+    <!-- 큰 아이콘 (주소록) -->
+    <div class="hero-icon-container">
+      <img src="images/signup_icon.png" alt="회원가입 아이콘" style="width: 80px; height: 80px; display: block;">
     </div>
 
-    <!-- 소셜 회원가입 버튼 -->
-    <div class="social-btns">
-      <!-- Apple -->
-      <button class="social-btn apple" type="button" onclick="alert('애플 계정 가입은 준비 중입니다.')">
-        <span class="social-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+    <!-- 이메일 폼 -->
+    <div class="input-group">
+      <label class="input-label">이메일</label>
+      <div class="input-row">
+        <div class="input-wrapper">
+          <svg class="input-icon" viewBox="0 0 24 24">
+            <rect x="3" y="5" width="18" height="14" rx="2" ry="2"/>
+            <polyline points="3 7 12 13 21 7"/>
           </svg>
-        </span>
-        애플 계정으로 가입하기
-      </button>
+          <input type="email" class="input-field" placeholder="example@umbrella.com">
+        </div>
+        <button class="action-btn" type="button" style="color: #FFE98A;">전송</button>
+      </div>
+    </div>
 
-      <!-- Google -->
-      <button class="social-btn google" type="button" onclick="alert('구글 계정 가입은 준비 중입니다.')">
-        <span class="social-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-              fill="#4285F4" />
-            <path
-              d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-              fill="#34A853" />
-            <path
-              d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-              fill="#FBBC05" />
-            <path
-              d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-              fill="#EA4335" />
+    <!-- 비밀번호 폼 -->
+    <div class="input-group">
+      <label class="input-label">비밀번호</label>
+      <div class="input-row">
+        <div class="input-wrapper">
+          <svg class="input-icon" viewBox="0 0 24 24">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <polyline points="9 12 11 14 15 10"/>
           </svg>
-        </span>
-        구글 계정으로 가입하기
-      </button>
-
-      <!-- Naver -->
-      <button class="social-btn naver" type="button" onclick="alert('네이버 계정 가입은 준비 중입니다.')">
-        <span class="social-icon"
-          style="font-weight:900;font-size:17px;color:#fff;font-family:sans-serif;letter-spacing:-1px;">N</span>
-        네이버 계정으로 가입하기
-      </button>
+          <input type="password" class="input-field" placeholder="">
+        </div>
+        <button class="action-btn" type="button">확인</button>
+      </div>
     </div>
 
-    <!-- 하단 링크 -->
-    <div class="bottom-links">
-      <span class="bottom-text">이미 계정이 있으신가요?</span>
-      <a href="login.html" class="bottom-link">로그인</a>
+    <!-- 비밀번호 확인 폼 -->
+    <div class="input-group">
+      <label class="input-label">비밀번호 확인</label>
+      <div class="input-row">
+        <div class="input-wrapper">
+          <svg class="input-icon" viewBox="0 0 24 24">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <polyline points="9 12 11 14 15 10"/>
+          </svg>
+          <input type="password" class="input-field" placeholder="">
+        </div>
+        <button class="action-btn" type="button">확인</button>
+      </div>
     </div>
+
+    <!-- 약관 동의 체크박스 영역 -->
+    <div class="checkbox-group">
+      <label class="checkbox-item">
+        <input type="checkbox" class="terms-checkbox" checked>
+        <span class="checkbox-text">[필수] 서비스 이용약관 동의</span>
+      </label>
+      <label class="checkbox-item">
+        <input type="checkbox" class="terms-checkbox" checked>
+        <span class="checkbox-text">[필수] 개인정보 처리방침 동의</span>
+      </label>
+      <label class="checkbox-item">
+        <input type="checkbox" class="terms-checkbox" checked>
+        <span class="checkbox-text">[선택] 마케팅 수신 동의</span>
+      </label>
+    </div>
+
+    <!-- 하단 로그인 버튼 -->
+    <button class="full-btn" onclick="location.href='login.html'">로그인</button>
   </div>
 
-  <script>
-    function togglePassword(inputId, iconId) {
-      const pw = document.getElementById(inputId);
-      const icon = document.getElementById(iconId);
-      if (pw.type === 'password') {
-        pw.type = 'text';
-        icon.innerHTML = `
-          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
-          <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
-          <line x1="1" y1="1" x2="23" y2="23"/>
-        `;
-      } else {
-        pw.type = 'password';
-        icon.innerHTML = `
-          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-          <circle cx="12" cy="12" r="3"/>
-        `;
-      }
-    }
-
-    function doSignup() {
-      const username = document.getElementById('username').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value;
-      const passwordConfirm = document.getElementById('password-confirm').value;
-
-      if (!username || !email || !password || !passwordConfirm) {
-        alert('모든 필드를 채워주세요.');
-        return;
-      }
-
-      if (password.length < 8) {
-        alert('비밀번호는 8자 이상이어야 합니다.');
-        return;
-      }
-
-      if (password !== passwordConfirm) {
-        alert('비밀번호가 일치하지 않습니다. 다시 확인해주세요.');
-        return;
-      }
-
-      // 로컬 스토리지에 사용자 정보 임시 저장 (개발용 모의 가입)
-      const userData = { username, email, password };
-      localStorage.setItem('umbrella_user', JSON.stringify(userData));
-
-      alert('우산비서 회원가입이 완료되었습니다!\n로그인 페이지로 이동합니다.');
-      window.location.href = 'login.html';
-    }
-  </script>
   <style>
     * {
       margin: 0;
@@ -185,256 +109,238 @@
     }
 
     body {
-      background-color: #eef2f7;
+      background-color: #f7f9fc;
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* 상단 헤더 */
+    .header-area {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 24px 0 16px;
+      border-bottom: 1px solid #e2eaf0;
+      background-color: #f7f9fc;
+    }
+
+    .back-btn {
+      position: absolute;
+      left: 20px;
+      background: none;
+      border: none;
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    .signup-container {
-      background-color: #eef2f7;
-      width: 100%;
-      max-width: 400px;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 48px 28px 40px;
+    .back-btn svg {
+      width: 24px;
+      height: 24px;
+      stroke: #61c2e6;
+      stroke-width: 2.5;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
 
-    /* 타이틀 */
     .signup-title {
-      color: #1a1a2e;
-      margin-bottom: 28px;
-      letter-spacing: -0.3px;
+      color: #333;
+      letter-spacing: -0.5px;
+    }
+
+    /* 메인 컨테이너 */
+    .main-container {
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      padding: 32px 28px 40px;
+      background-color: #f7f9fc;
     }
 
     /* 진행 단계 인디케이터 */
     .step-indicator {
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 30px;
       width: 100%;
-      justify-content: center;
+      margin-bottom: 40px;
     }
 
     .step-line {
       flex: 1;
       height: 1.5px;
-      background-color: #c8d5e0;
-      max-width: 60px;
+      background-color: #d6e8f4;
     }
 
     .step-dot {
       width: 12px;
       height: 12px;
       border-radius: 50%;
+      margin: 0 4px;
     }
 
     .step-dot.blue {
-      background-color: #4a90d9;
+      background-color: #61c2e6;
     }
 
     .step-dot.yellow {
-      background-color: #f5c842;
-      width: 14px;
-      height: 14px;
+      background-color: #fae178;
+      width: 16px;
+      height: 16px;
     }
 
-    /* 입력 폼 영역 */
-    .form-section {
-      width: 100%;
+    /* 큰 원형 아이콘 (주소록) */
+    .hero-icon-container {
       display: flex;
-      flex-direction: column;
-      gap: 16px;
-      margin-bottom: 24px;
+      justify-content: center;
+      margin-bottom: 40px;
     }
 
-    .input-group {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      width: 100%;
-    }
-
-    .input-label {
-      color: #2d3a4a;
-      padding-left: 2px;
-    }
-
-    .input-field {
-      width: 100%;
-      height: 52px;
-      background-color: #ffffff;
-      border: 1.5px solid #d8e3ec;
-      border-radius: 12px;
-      padding: 0 16px;
-      color: #2d3a4a;
-      outline: none;
-      transition: border-color 0.2s ease;
-    }
-
-    .input-field::placeholder {
-      color: #b0bec5;
-    }
-
-    .input-field:focus {
-      border-color: #4a90d9;
-    }
-
-    .password-wrapper {
-      position: relative;
-    }
-
-    .password-wrapper .input-field {
-      padding-right: 48px;
-    }
-
-    .toggle-pw {
-      position: absolute;
-      right: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 4px;
+    .hero-circle {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-color: #61c2e6;
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: 0 6px 15px rgba(97, 194, 230, 0.3);
     }
 
-    .toggle-pw svg {
+    .hero-circle svg {
+      width: 44px;
+      height: 44px;
+    }
+
+    /* 입력 폼 영역 */
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .input-label {
+      color: #333;
+      line-height: 20px;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .input-wrapper {
+      position: relative;
+      flex: 1;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
       width: 20px;
       height: 20px;
+      stroke: #7f8c8d;
       fill: none;
-      stroke: #90a4ae;
       stroke-width: 1.8;
       stroke-linecap: round;
       stroke-linejoin: round;
     }
 
-    /* 가입 완료 버튼 */
-    .submit-btn {
+    .input-field {
       width: 100%;
-      height: 52px;
-      background: linear-gradient(135deg, #54b8e8, #3a9bce);
+      height: 48px;
+      background-color: #ffffff;
+      border: 1.5px solid #7bc6e8;
+      border-radius: 6px;
+      padding: 0 14px 0 44px;
+      /* 아이콘 영역 확보 */
+      color: #333;
+      outline: none;
+    }
+
+    .input-field::placeholder {
+      color: #999;
+    }
+
+    .action-btn {
+      width: 76px;
+      height: 48px;
+      background-color: #61c2e6;
       border: none;
-      border-radius: 14px;
+      border-radius: 10px;
       color: #ffffff;
       cursor: pointer;
-      margin-top: 10px;
-      letter-spacing: -0.3px;
-      box-shadow: 0 4px 14px rgba(74, 144, 217, 0.35);
-      transition: opacity 0.2s, transform 0.15s;
+      flex-shrink: 0;
+      box-shadow: 0 4px 10px rgba(97, 194, 230, 0.3);
     }
 
-    .submit-btn:active {
-      opacity: 0.88;
-      transform: scale(0.98);
+    .action-btn:active {
+      background-color: #55b2d6;
     }
 
-    /* OR 구분선 */
-    .or-divider {
-      display: flex;
-      align-items: center;
-      width: 100%;
-      gap: 14px;
-      margin-bottom: 22px;
-    }
-
-    .or-divider-line {
-      flex: 1;
-      height: 1px;
-      background-color: #c8d5e0;
-    }
-
-    .or-text {
-      color: #90a4ae;
-      padding: 4px 8px;
-      border: 1.5px solid #c8d5e0;
-      border-radius: 20px;
-      background-color: #eef2f7;
-    }
-
-    /* 소셜 회원가입 버튼 */
-    .social-btns {
+    /* 체크박스 영역 */
+    .checkbox-group {
       display: flex;
       flex-direction: column;
-      gap: 11px;
-      width: 100%;
-      margin-bottom: 32px;
+      gap: 16px;
+      margin-top: 10px;
+      margin-bottom: 30px;
     }
 
-    .social-btn {
+    .checkbox-item {
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 10px;
-      width: 100%;
-      height: 52px;
-      border-radius: 13px;
-      border: 1.5px solid #dce6ee;
-      background-color: #ffffff;
+      gap: 12px;
       cursor: pointer;
-      transition: background-color 0.18s, transform 0.12s;
-      color: #2d3a4a;
     }
 
-    .social-btn:active {
-      transform: scale(0.98);
-    }
-
-    .social-btn.apple {
-      color: #1a1a2e;
-    }
-
-    .social-btn.google {
-      color: #2d3a4a;
-    }
-
-    .social-btn.naver {
-      background-color: #03c75a;
-      border-color: #03c75a;
-      color: #ffffff;
-    }
-
-    /* 소셜 아이콘 */
-    .social-icon {
+    .terms-checkbox {
+      appearance: none;
       width: 22px;
       height: 22px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      border: 1.5px solid #333;
+      border-radius: 6px;
+      cursor: pointer;
+      background-color: #fff;
       flex-shrink: 0;
     }
 
-    /* 하단 링크 */
-    .bottom-links {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
+    .terms-checkbox:checked {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+      background-size: 16px;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .checkbox-text {
+      color: #333;
+      line-height: 1;
+    }
+
+    /* 하단 로그인 버튼 */
+    .full-btn {
       width: 100%;
-    }
-
-    .bottom-text {
-      color: #78909c;
-    }
-
-    .bottom-link {
-      color: #4a90d9;
-      cursor: pointer;
-      text-decoration: none;
-      background: none;
+      height: 52px;
+      background-color: #61c2e6;
       border: none;
-      transition: color 0.2s;
+      border-radius: 8px;
+      color: #ffffff;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(97, 194, 230, 0.4);
     }
 
-    .bottom-link:hover {
-      color: #357abd;
+    .full-btn:active {
+      background-color: #55b2d6;
     }
   
     body, input, button, select, textarea {
@@ -448,7 +354,6 @@
       font-weight: 400;
       font-size: 22px;
     }
-</style>
+  </style>
 </body>
-
 </html>
