@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>일정 관리 - 우산비서</title>
+  <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <div class="schedule-container">
+    <!-- 상단 헤더 -->
+    <header class="app-header">
+      <button class="back-btn" onclick="history.back()">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+      </button>
+      <h1 class="page-title">일정 관리</h1>
+      <div class="profile-icon">
+        <img src="images/duck_profile.png" alt="프로필">
+      </div>
+    </header>
+
+    <!-- 메인 콘텐츠 -->
+    <main class="content-area">
+      <!-- 타이틀 및 추가 버튼 -->
+      <div class="schedule-header">
+        <h2 class="schedule-title">Schedule</h2>
+        <button class="add-btn" onclick="openModal()">
+          <svg viewBox="0 0 24 24">
+            <path d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- 일정 리스트 -->
+      <div class="schedule-list">
+        
+        <!-- 체크된 항목 -->
+        <div class="schedule-item">
+          <button class="check-btn checked" onclick="this.classList.toggle('checked')">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </button>
+          <div class="schedule-info">
+            <div class="s-title">전시회가기</div>
+            <div class="s-time">PM 12:00</div>
+          </div>
+          <div class="action-btns">
+            <button class="edit-btn">
+              <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+              </svg>
+            </button>
+            <button class="delete-btn" onclick="this.closest('.schedule-item').remove()">
+              <svg viewBox="0 0 24 24">
+                <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- 미체크 항목 -->
+        <div class="schedule-item">
+          <button class="check-btn" onclick="this.classList.toggle('checked')">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </button>
+          <div class="schedule-info">
+            <div class="s-title">코인빨래방 가기</div>
+            <div class="s-time">PM 06:00</div>
+          </div>
+          <div class="action-btns">
+            <button class="edit-btn">
+              <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+              </svg>
+            </button>
+            <button class="delete-btn" onclick="this.closest('.schedule-item').remove()">
+              <svg viewBox="0 0 24 24">
+                <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- 하단 네비게이션 -->
+    <nav class="bottom-nav">
+      <a href="dashboard.html" class="nav-item">
+        <img src="images/nav_weather.png" alt="날씨 아이콘" class="nav-icon">
+        <span>날씨</span>
+      </a>
+      <a href="schedule.html" class="nav-item active">
+        <img src="images/nav_schedule.png" alt="일정 아이콘" class="nav-icon">
+        <span>일정</span>
+      </a>
+      <a href="#" class="nav-item">
+        <img src="images/nav_wubitalk.png" alt="우비톡 아이콘" class="nav-icon">
+        <span>우비톡</span>
+      </a>
+      <a href="#" class="nav-item">
+        <img src="images/nav_settings.png" alt="설정 아이콘" class="nav-icon">
+        <span>설정</span>
+      </a>
+    </nav>
+
+    <!-- 일정 추가 모달 -->
+    <div class="modal-overlay" id="addScheduleModal" onclick="if(event.target === this) closeModal()">
+      <div class="modal-content">
+        <div class="form-group">
+          <label>일정 이름</label>
+          <input type="text" id="scheduleName" value="" placeholder="일정을 입력하세요">
+        </div>
+
+        <div class="form-group">
+          <label>날짜 및 시간</label>
+          <div class="input-row">
+            <input type="text" id="scheduleDate" value="2026.04.22">
+            <input type="text" id="scheduleTime" value="AM 10:00" placeholder="예: 14:00">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>사전 알림 시간</label>
+          <div class="chip-group">
+            <button class="chip time-chip">5분전</button>
+            <button class="chip time-chip">10분전</button>
+            <button class="chip time-chip active">30분전</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>사전 알림 조건</label>
+          <div class="chip-group">
+            <button class="chip cond-chip active">비</button>
+            <button class="chip cond-chip active">눈</button>
+            <button class="chip cond-chip">강풍</button>
+            <button class="chip cond-chip">미세먼지</button>
+          </div>
+        </div>
+
+        <button class="submit-btn" onclick="addSchedule()">등록하기</button>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, input, button, select, textarea {
+      font-family: 'Manrope', -apple-system, sans-serif;
+    }
+
+    body {
+      background-color: #e2e8f0; /* 외부 배경색 */
+      display: flex;
+      justify-content: center;
+    }
+
+    .schedule-container {
+      width: 100%;
+      max-width: 400px;
+      min-height: 100vh;
+      background-color: #f4f6f9; /* 앱 전체 배경색 */
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 110px; /* 네비게이션 여백 */
+    }
+
+    /* 헤더 */
+    .app-header {
+      background-color: #61c2e6;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 20px;
+      color: #ffffff;
+    }
+
+    .back-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .back-btn svg {
+      width: 22px;
+      height: 22px;
+      stroke: #ffffff;
+      stroke-width: 2.5;
+      fill: none;
+    }
+
+    .page-title {
+      font-family: 'Jua', sans-serif;
+      font-size: 20px;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+    }
+
+    .profile-icon {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .profile-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    /* 메인 콘텐츠 */
+    .content-area {
+      padding: 40px 24px;
+    }
+
+    .schedule-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .schedule-title {
+      font-family: 'Manrope', sans-serif;
+      font-size: 28px;
+      font-weight: 600;
+      color: #1a163a;
+    }
+
+    .add-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .add-btn svg {
+      width: 26px;
+      height: 26px;
+      fill: #111;
+    }
+
+    /* 일정 리스트 */
+    .schedule-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .schedule-item {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.03);
+    }
+
+    .check-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid #61c2e6;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .check-btn.checked {
+      background: #61c2e6;
+      border-color: #61c2e6;
+    }
+
+    .check-btn svg {
+      width: 18px;
+      height: 18px;
+      stroke: #ffffff;
+      stroke-width: 3;
+      fill: none;
+      display: none;
+    }
+
+    .check-btn.checked svg {
+      display: block;
+    }
+
+    .schedule-info {
+      margin-left: 16px;
+      flex-grow: 1;
+    }
+
+    .s-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #111;
+      margin-bottom: 4px;
+    }
+
+    .s-time {
+      font-size: 11px;
+      color: #888;
+      font-weight: 500;
+    }
+
+    .action-btns {
+      display: flex;
+      gap: 8px;
+    }
+
+    .edit-btn, .delete-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+      cursor: pointer;
+    }
+
+    .edit-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: #666;
+      stroke-width: 2;
+    }
+
+    .delete-btn {
+      background: #ffe66d;
+      border-color: #ffe66d;
+    }
+
+    .delete-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: #111;
+    }
+
+    /* 하단 네비게이션 바 */
+    .bottom-nav {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 40px);
+      max-width: 360px;
+      height: 70px;
+      background: #f6fbfe;
+      border: 1px solid #e0f0f5;
+      border-radius: 35px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 100;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      color: #61c2e6;
+      font-size: 11px;
+      font-weight: 400;
+      margin-top: 2px;
+    }
+
+    .nav-item.active {
+      color: #006888;
+    }
+
+    .nav-icon {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+    }
+
+    /* 모달 스타일 */
+    .modal-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.4);
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-content {
+      width: 100%;
+      background: #ffffff;
+      border-radius: 24px 24px 0 0;
+      padding: 30px 24px 40px;
+      animation: slideUp 0.3s ease-out forwards;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: #555;
+      margin-bottom: 12px;
+    }
+
+    .form-group input {
+      width: 100%;
+      height: 48px;
+      border: 1px solid #eceeef;
+      border-radius: 12px;
+      padding: 0 16px;
+      font-size: 15px;
+      color: #222;
+      outline: none;
+      font-family: 'Manrope', sans-serif;
+    }
+
+    .form-group input:focus {
+      border-color: #62c1f5;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 12px;
+    }
+    .input-row input {
+      flex: 1;
+      text-align: center;
+    }
+
+    .chip-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .chip {
+      padding: 10px 18px;
+      border-radius: 20px;
+      border: 1px solid #eceeef;
+      background: #ffffff;
+      font-size: 14px;
+      color: #444;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: 'Manrope', sans-serif;
+      transition: all 0.2s;
+    }
+
+    .chip.active {
+      background: #bfe4fb;
+      border-color: #bfe4fb;
+      color: #111;
+      font-weight: 600;
+    }
+
+    .submit-btn {
+      width: 100%;
+      height: 54px;
+      background: #62c1f5;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 700;
+      border: none;
+      border-radius: 16px;
+      margin-top: 10px;
+      cursor: pointer;
+      font-family: 'Manrope', sans-serif;
+    }
+  </style>
+
+  <script>
+    function openModal() {
+      // 팝업 열 때 초기화
+      document.getElementById('scheduleName').value = '';
+      document.getElementById('scheduleTime').value = 'AM 10:00';
+      document.getElementById('addScheduleModal').classList.add('active');
+    }
+    
+    function closeModal() {
+      document.getElementById('addScheduleModal').classList.remove('active');
+    }
+
+    // 시간 입력 시 AM/PM 자동 변환 기능
+    const timeInput = document.getElementById('scheduleTime');
+    timeInput.addEventListener('blur', function() {
+      let val = this.value.trim();
+      let h, m;
+      
+      if (val.includes(':')) {
+        let parts = val.replace(/[^0-9:]/g, '').split(':');
+        h = parseInt(parts[0]);
+        m = parseInt(parts[1]);
+      } else {
+        let numStr = val.replace(/[^0-9]/g, '');
+        if (numStr.length >= 3 && numStr.length <= 4) {
+          h = parseInt(numStr.length === 3 ? numStr.substring(0, 1) : numStr.substring(0, 2));
+          m = parseInt(numStr.length === 3 ? numStr.substring(1, 3) : numStr.substring(2, 4));
+        }
+      }
+
+      if (h !== undefined && m !== undefined && !isNaN(h) && !isNaN(m)) {
+        if (h >= 0 && h <= 23 && m >= 0 && m <= 59) {
+          let ampm = h >= 12 ? 'PM' : 'AM';
+          let h12 = h % 12 || 12;
+          this.value = `${ampm} ${h12.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
+        }
+      }
+    });
+
+    // 사전 알림 시간 칩 (단일 선택 로직)
+    document.querySelectorAll('.time-chip').forEach(chip => {
+      chip.addEventListener('click', function() {
+        document.querySelectorAll('.time-chip').forEach(c => c.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    // 사전 알림 조건 칩 (다중 선택 토글)
+    document.querySelectorAll('.cond-chip').forEach(chip => {
+      chip.addEventListener('click', function() {
+        this.classList.toggle('active');
+      });
+    });
+
+    // 일정 추가하기 로직
+    function addSchedule() {
+      const nameInput = document.getElementById('scheduleName');
+      const timeInput = document.getElementById('scheduleTime');
+      const name = nameInput.value.trim();
+      const time = timeInput.value.trim();
+
+      if (!name) {
+        alert('일정 이름을 입력해주세요.');
+        nameInput.focus();
+        return;
+      }
+
+      const list = document.querySelector('.schedule-list');
+      const newItem = document.createElement('div');
+      newItem.className = 'schedule-item';
+      
+      newItem.innerHTML = `
+          <button class="check-btn" onclick="this.classList.toggle('checked')">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </button>
+          <div class="schedule-info">
+            <div class="s-title">${name}</div>
+            <div class="s-time">${time}</div>
+          </div>
+          <div class="action-btns">
+            <button class="edit-btn">
+              <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+              </svg>
+            </button>
+            <button class="delete-btn" onclick="this.closest('.schedule-item').remove()">
+              <svg viewBox="0 0 24 24">
+                <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+              </svg>
+            </button>
+          </div>
+      `;
+      
+      // 최신 일정을 맨 위로 추가
+      list.prepend(newItem);
+      
+      // 팝업 닫기
+      closeModal();
+    }
+  </script>
+
+</body>
+</html>
