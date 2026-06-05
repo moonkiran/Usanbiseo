@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>우산비서</title>
+</head>
+<body>
+
+  <div id="app">
+    <div id="splash" class="screen">
+      <img src="images/splash.jpg" alt="우산비서 스플래시" />
+    </div>
+    <div id="main" class="screen hidden">
+      <img src="images/main.jpg" alt="우산비서 메인" />
+      <div class="action-container">
+        <a href="login.html" class="btn btn-login">로그인</a>
+        <a href="signup.html" class="btn btn-signup">회원가입</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.addEventListener("load", function () {
+      var splash = document.getElementById("splash");
+      var main = document.getElementById("main");
+
+      setTimeout(function () {
+        splash.classList.add("fade-out");
+        setTimeout(function () {
+          splash.classList.add("gone");
+          main.classList.remove("hidden");
+          requestAnimationFrame(function () {
+            requestAnimationFrame(function () {
+              main.classList.add("visible");
+            });
+          });
+        }, 800);
+      }, 2000);
+    });
+  </script>
+
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 100%;
+      height: 100vh;
+      background: #78c8e8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* 항상 390x844 고정 크기, 절대 늘어나지 않음 */
+    #app {
+      position: relative;
+      width: 390px;
+      height: 844px;
+      flex-shrink: 0;
+      overflow: hidden;
+      border-radius: 40px;
+      box-shadow: 0 8px 60px rgba(0, 0, 0, 0.25);
+    }
+
+    /* 모바일: 화면에 꽉 차게 */
+    @media (max-width: 430px) {
+      body {
+        background: #b3e5fc;
+      }
+      #app {
+        width: 100vw;
+        height: 100vh;
+        height: 100dvh;
+        border-radius: 0;
+        box-shadow: none;
+      }
+    }
+
+    .screen {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .screen img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    #splash {
+      opacity: 1;
+      transition: opacity 0.8s ease-in-out;
+      z-index: 10;
+    }
+
+    #splash.fade-out { opacity: 0; }
+    #splash.gone { display: none; }
+
+    #main {
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out;
+      z-index: 5;
+    }
+
+    #main.hidden { visibility: hidden; }
+    #main.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* 버튼 컨테이너 및 프리미엄 디자인 */
+    .action-container {
+      position: absolute;
+      bottom: 60px;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 0 28px;
+      z-index: 15;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 52px;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+      outline: none;
+    }
+
+    .btn-login {
+      background: linear-gradient(135deg, #54b8e8, #3a9bce);
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(74, 144, 217, 0.3);
+    }
+
+    .btn-login:active {
+      transform: scale(0.98);
+      background: linear-gradient(135deg, #4aa8d8, #2e8bbe);
+    }
+
+    .btn-signup {
+      background: rgba(255, 255, 255, 0.9);
+      color: #2d3a4a;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .btn-signup:active {
+      transform: scale(0.98);
+      background: rgba(240, 240, 240, 0.9);
+    }
+  </style>
+
+</body>
+</html>
