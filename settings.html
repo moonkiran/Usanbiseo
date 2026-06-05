@@ -33,112 +33,52 @@
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
           <h2>시간 설정</h2>
         </div>
-                <div class="time-cards">
+                        <div class="time-cards">
           <div class="time-card">
             <span class="label">외출 시간</span>
             <div class="time-value">
-              <div class="time-part">
+              <div class="time-part" onclick="toggleDropdown(this)">
                 <span id="out-hour">08</span>
                 <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                <select onchange="document.getElementById('out-hour').innerText = this.value">
-<option value="00">00</option>
-<option value="01">01</option>
-<option value="02">02</option>
-<option value="03">03</option>
-<option value="04">04</option>
-<option value="05">05</option>
-<option value="06">06</option>
-<option value="07">07</option>
-<option value="08" selected>08</option>
-<option value="09">09</option>
-<option value="10">10</option>
-<option value="11">11</option>
-<option value="12">12</option>
-<option value="13">13</option>
-<option value="14">14</option>
-<option value="15">15</option>
-<option value="16">16</option>
-<option value="17">17</option>
-<option value="18">18</option>
-<option value="19">19</option>
-<option value="20">20</option>
-<option value="21">21</option>
-<option value="22">22</option>
-<option value="23">23</option>
-                </select>
+
+                <div class="custom-dropdown">
+                  <div class="dropdown-item" onclick="selectDropdownValue(this, 'out-hour', '00', event)">00</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'out-hour', '01', event)">01</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'out-hour', '02', event)">02</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'out-hour', '03', event)">03</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'out-hour', '04', event)">04</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'out-hour', '05', event)">05</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'out-hour', '06', event)">06</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'out-hour', '07', event)">07</div><div class="dropdown-item active" onclick="selectDropdownValue(this, 'out-hour', '08', event)">08</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'out-hour', '09', event)">09</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'out-hour', '10', event)">10</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'out-hour', '11', event)">11</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'out-hour', '12', event)">12</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'out-hour', '13', event)">13</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'out-hour', '14', event)">14</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'out-hour', '15', event)">15</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'out-hour', '16', event)">16</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'out-hour', '17', event)">17</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'out-hour', '18', event)">18</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'out-hour', '19', event)">19</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'out-hour', '20', event)">20</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'out-hour', '21', event)">21</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'out-hour', '22', event)">22</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'out-hour', '23', event)">23</div>
+                </div>
+
               </div>
               <span class="colon">:</span>
-              <div class="time-part">
+              <div class="time-part" onclick="toggleDropdown(this)">
                 <span id="out-minute">30</span>
                 <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                <select onchange="document.getElementById('out-minute').innerText = this.value">
-<option value="00">00</option>
-<option value="05">05</option>
-<option value="10">10</option>
-<option value="15">15</option>
-<option value="20">20</option>
-<option value="25">25</option>
-<option value="30" selected>30</option>
-<option value="35">35</option>
-<option value="40">40</option>
-<option value="45">45</option>
-<option value="50">50</option>
-<option value="55">55</option>
-                </select>
+
+                <div class="custom-dropdown">
+                  <div class="dropdown-item" onclick="selectDropdownValue(this, 'out-minute', '00', event)">00</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'out-minute', '05', event)">05</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'out-minute', '10', event)">10</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'out-minute', '15', event)">15</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'out-minute', '20', event)">20</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'out-minute', '25', event)">25</div><div class="dropdown-item active" onclick="selectDropdownValue(this, 'out-minute', '30', event)">30</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'out-minute', '35', event)">35</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'out-minute', '40', event)">40</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'out-minute', '45', event)">45</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'out-minute', '50', event)">50</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'out-minute', '55', event)">55</div>
+                </div>
+
               </div>
             </div>
           </div>
           <div class="time-card">
             <span class="label">귀가 시간</span>
             <div class="time-value">
-              <div class="time-part">
+              <div class="time-part" onclick="toggleDropdown(this)">
                 <span id="in-hour">18</span>
                 <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                <select onchange="document.getElementById('in-hour').innerText = this.value">
-<option value="00">00</option>
-<option value="01">01</option>
-<option value="02">02</option>
-<option value="03">03</option>
-<option value="04">04</option>
-<option value="05">05</option>
-<option value="06">06</option>
-<option value="07">07</option>
-<option value="08">08</option>
-<option value="09">09</option>
-<option value="10">10</option>
-<option value="11">11</option>
-<option value="12">12</option>
-<option value="13">13</option>
-<option value="14">14</option>
-<option value="15">15</option>
-<option value="16">16</option>
-<option value="17">17</option>
-<option value="18" selected>18</option>
-<option value="19">19</option>
-<option value="20">20</option>
-<option value="21">21</option>
-<option value="22">22</option>
-<option value="23">23</option>
-                </select>
+
+                <div class="custom-dropdown">
+                  <div class="dropdown-item" onclick="selectDropdownValue(this, 'in-hour', '00', event)">00</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'in-hour', '01', event)">01</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'in-hour', '02', event)">02</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'in-hour', '03', event)">03</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'in-hour', '04', event)">04</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'in-hour', '05', event)">05</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'in-hour', '06', event)">06</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'in-hour', '07', event)">07</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'in-hour', '08', event)">08</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'in-hour', '09', event)">09</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'in-hour', '10', event)">10</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'in-hour', '11', event)">11</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'in-hour', '12', event)">12</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'in-hour', '13', event)">13</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'in-hour', '14', event)">14</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'in-hour', '15', event)">15</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'in-hour', '16', event)">16</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'in-hour', '17', event)">17</div><div class="dropdown-item active" onclick="selectDropdownValue(this, 'in-hour', '18', event)">18</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'in-hour', '19', event)">19</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'in-hour', '20', event)">20</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'in-hour', '21', event)">21</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'in-hour', '22', event)">22</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'in-hour', '23', event)">23</div>
+                </div>
+
               </div>
               <span class="colon">:</span>
-              <div class="time-part">
+              <div class="time-part" onclick="toggleDropdown(this)">
                 <span id="in-minute">30</span>
                 <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                <select onchange="document.getElementById('in-minute').innerText = this.value">
-<option value="00">00</option>
-<option value="05">05</option>
-<option value="10">10</option>
-<option value="15">15</option>
-<option value="20">20</option>
-<option value="25">25</option>
-<option value="30" selected>30</option>
-<option value="35">35</option>
-<option value="40">40</option>
-<option value="45">45</option>
-<option value="50">50</option>
-<option value="55">55</option>
-                </select>
+
+                <div class="custom-dropdown">
+                  <div class="dropdown-item" onclick="selectDropdownValue(this, 'in-minute', '00', event)">00</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'in-minute', '05', event)">05</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'in-minute', '10', event)">10</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'in-minute', '15', event)">15</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'in-minute', '20', event)">20</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'in-minute', '25', event)">25</div><div class="dropdown-item active" onclick="selectDropdownValue(this, 'in-minute', '30', event)">30</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'in-minute', '35', event)">35</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'in-minute', '40', event)">40</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'in-minute', '45', event)">45</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'in-minute', '50', event)">50</div><div class="dropdown-item" onclick="selectDropdownValue(this, 'in-minute', '55', event)">55</div>
+                </div>
+
               </div>
             </div>
           </div>
@@ -303,14 +243,50 @@
   <script>
     // 토글 버튼 클릭 인터랙션
     function toggleBtn(clickedBtn) {
-      // 동일한 그룹 내의 버튼들을 찾음
       const group = clickedBtn.parentElement;
       const buttons = group.querySelectorAll('.toggle-btn');
       
-      // 모든 버튼에서 active 제거 후 클릭된 버튼에만 추가
       buttons.forEach(btn => btn.classList.remove('active'));
       clickedBtn.classList.add('active');
     }
+
+    // 커스텀 드롭다운 열기/닫기
+    function toggleDropdown(el) {
+      // 다른 열려있는 드롭다운 모두 닫기
+      document.querySelectorAll('.custom-dropdown.show').forEach(dropdown => {
+        if (dropdown !== el.querySelector('.custom-dropdown')) {
+          dropdown.classList.remove('show');
+        }
+      });
+      // 현재 클릭한 드롭다운 토글
+      const dropdown = el.querySelector('.custom-dropdown');
+      if (dropdown) {
+        dropdown.classList.toggle('show');
+      }
+    }
+
+    // 드롭다운 값 선택
+    function selectDropdownValue(itemEl, targetId, val, e) {
+      e.stopPropagation(); // 드롭다운 닫기 이벤트 전파 방지
+      document.getElementById(targetId).innerText = val;
+      
+      // active 클래스 업데이트
+      const parent = itemEl.parentElement;
+      parent.querySelectorAll('.dropdown-item').forEach(i => i.classList.remove('active'));
+      itemEl.classList.add('active');
+
+      // 드롭다운 닫기
+      parent.classList.remove('show');
+    }
+
+    // 바깥 영역 클릭 시 드롭다운 닫기
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.time-part')) {
+        document.querySelectorAll('.custom-dropdown.show').forEach(dropdown => {
+          dropdown.classList.remove('show');
+        });
+      }
+    });
   </script>
 <style>
     * {
@@ -470,14 +446,48 @@
       fill: none;
     }
 
-    .time-part select {
+    .custom-dropdown {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0;
+      top: 30px; /* span 아래 위치 */
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      max-height: 160px;
+      overflow-y: auto;
+      background: #ffffff;
+      border: 1px solid #e0e8ef;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      display: none;
+      flex-direction: column;
+      z-index: 1000;
+    }
+
+    .custom-dropdown.show {
+      display: flex;
+    }
+
+    .custom-dropdown::-webkit-scrollbar {
+      width: 4px;
+    }
+    .custom-dropdown::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 2px;
+    }
+
+    .dropdown-item {
+      padding: 8px 0;
+      text-align: center;
+      font-size: 15px;
+      color: #555;
       cursor: pointer;
+      font-weight: 500;
+    }
+
+    .dropdown-item:hover, .dropdown-item.active {
+      background: #e6f5fc;
+      color: #006888;
+      font-weight: 700;
     }
 
     .colon {
