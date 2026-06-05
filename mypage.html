@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>마이페이지 - 우산비서</title>
+  <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="app-container">
+    <!-- 상단 헤더 -->
+    <header class="app-header">
+      <button class="back-btn" onclick="history.back()">
+        <svg viewBox="0 0 24 24">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+      </button>
+      <h1 class="page-title">마이페이지</h1>
+      <div class="logout-icon" onclick="if(confirm('로그아웃 하시겠습니까?')) location.href='login.html';" style="cursor: pointer; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 22px; height: 22px;">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+          <polyline points="16 17 21 12 16 7" />
+          <line x1="21" y1="12" x2="9" y2="12" />
+        </svg>
+      </div>
+    </header>
+
+    <main class="mypage-content">
+      <!-- ① 프로필 카드 -->
+      <div class="profile-card">
+        <!-- 장식용 배경 구름 오브젝트 -->
+        <div class="cloud-decor"></div>
+        
+        <div class="profile-main">
+          <!-- 캐릭터 이미지 -->
+          <div class="avatar-frame">
+            <img src="images/duck_character.png" alt="우비 오리">
+          </div>
+          <!-- 우측 텍스트 영역 -->
+          <div class="profile-info">
+            <div class="nickname">우비보이</div>
+            <div class="join-date">가입일: 2026.06.05</div>
+            <div class="badge-container">
+              <span class="badge badge-filled">우산 마스터</span>
+              <span class="badge badge-outline">비 예측 전문가</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ② 이번 달 우산 리포트 카드 -->
+      <div class="card report-card">
+        <div class="card-title">이번 달 우산 리포트</div>
+        
+        <!-- 캐릭터 말풍선 블록 -->
+        <div class="character-speech-block">
+          <div class="mini-avatar">
+            <img src="images/duck_character.png" alt="꼬마 오리">
+          </div>
+          <div class="speech-bubble-wrapper">
+            <div class="speech-bubble" id="umbrella-comment">
+              <!-- JS 동적 주입 -->
+            </div>
+            <div class="speech-sub" id="umbrella-subtext">
+              <!-- JS 동적 주입 -->
+            </div>
+          </div>
+        </div>
+
+        <!-- 게이지 바 블록 -->
+        <div class="gauge-block">
+          <div class="gauge-label-row">
+            <span class="gauge-title">우산 지수</span>
+            <span class="gauge-value" id="umbrella-pct-text">0%</span>
+          </div>
+          <div class="gauge-track">
+            <div class="gauge-fill" id="umbrella-gauge-fill" style="width: 0%;"></div>
+          </div>
+        </div>
+
+        <!-- 통계 3칸 그리드 -->
+        <div class="stats-grid">
+          <div class="stat-box">
+            <div class="stat-num">12일</div>
+            <div class="stat-label">비온 날</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">10일</div>
+            <div class="stat-label">우산 챙긴 날</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">2일</div>
+            <div class="stat-label">맞은 날</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ③ 레벨 & XP 카드 -->
+      <div class="card level-card">
+        <div class="level-header">
+          <div class="level-icon-circle">☂</div>
+          <div class="level-info">
+            <div class="level-name">Lv.7 · 우산 마스터</div>
+            <div class="level-subtext" id="xp-remaining-text">다음 레벨까지 0 XP</div>
+          </div>
+        </div>
+        
+        <div class="xp-block">
+          <div class="xp-track">
+            <div class="xp-fill" id="xp-fill" style="width: 0%;"></div>
+          </div>
+          <div class="xp-values">
+            <span id="xp-current-text">0 XP</span>
+            <span id="xp-max-text">0 XP</span>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- 하단 네비게이션 -->
+    <nav class="bottom-nav">
+      <a href="dashboard.html" class="nav-item">
+        <img src="images/nav_weather.png" alt="날씨 아이콘" class="nav-icon">
+        <span>날씨</span>
+      </a>
+      <a href="schedule.html" class="nav-item">
+        <img src="images/nav_schedule.png" alt="일정 아이콘" class="nav-icon">
+        <span>일정</span>
+      </a>
+      <a href="wubitalk.html" class="nav-item">
+        <img src="images/nav_wubitalk.png" alt="우비톡 아이콘" class="nav-icon">
+        <span>우비톡</span>
+      </a>
+      <a href="settings.html" class="nav-item active">
+        <img src="images/nav_settings.png" alt="설정 아이콘" class="nav-icon">
+        <span>설정</span>
+      </a>
+    </nav>
+  </div>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Manrope', -apple-system, sans-serif;
+    }
+
+    body {
+      background-color: #e2e8f0;
+      display: flex;
+      justify-content: center;
+    }
+
+    .app-container {
+      width: 100%;
+      max-width: 400px;
+      min-height: 100vh;
+      background-color: #f4f6f9;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 110px;
+    }
+
+    /* 헤더 */
+    .app-header {
+      background-color: #61c2e6;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 20px;
+      color: #ffffff;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .back-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .back-btn svg {
+      width: 22px;
+      height: 22px;
+      stroke: #ffffff;
+      stroke-width: 2.5;
+      fill: none;
+    }
+
+    .page-title {
+      font-family: 'Jua', sans-serif;
+      font-size: 22px;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+    }
+
+    .profile-icon {
+      width: 32px;
+      height: 32px;
+    }
+
+    .profile-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    /* 마이페이지 본문 */
+    .mypage-content {
+      padding: 20px;
+      flex-grow: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* 카드 공통 스타일 */
+    .card {
+      background: #ffffff;
+      border: 1px solid #eef3f6;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.015);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.03);
+    }
+
+    .card-title {
+      font-size: 11px;
+      font-weight: 800;
+      color: #90a4ae;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+
+    /* ① 프로필 카드 */
+    .profile-card {
+      position: relative;
+      background: #EBF6FF;
+      border-radius: 20px;
+      padding: 24px 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(97, 194, 230, 0.06);
+      transition: transform 0.2s ease;
+    }
+
+    .profile-card:hover {
+      transform: translateY(-2px);
+    }
+
+    /* 흰색 반투명 원형 겹친 데코 (구름 형상) + 노란색 해 데코 (#FFF1B9) */
+    .cloud-decor {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      width: 90px;
+      height: 90px;
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .cloud-decor::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      width: 70px;
+      height: 70px;
+      background: rgba(255, 255, 255, 0.45);
+      border-radius: 50%;
+    }
+
+    /* 노란색 해 데코레이션 추가 */
+    .cloud-decor::after {
+      content: '';
+      position: absolute;
+      top: -20px;
+      right: 40px;
+      width: 55px;
+      height: 55px;
+      background: #FFF1B9;
+      border-radius: 50%;
+      box-shadow: 0 0 12px rgba(255, 241, 185, 0.8);
+    }
+
+    .profile-main {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .avatar-frame {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 3px solid #61c2e6;
+      box-shadow: 0 0 0 3px #FFF1B9; /* 이중 컬러 테두리 포인트 */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .avatar-frame img {
+      width: 80%;
+      height: 80%;
+      object-fit: contain;
+    }
+
+    .profile-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .nickname {
+      font-size: 20px;
+      font-weight: 800;
+      color: #003240;
+    }
+
+    .join-date {
+      font-size: 12px;
+      color: #789cba;
+      font-weight: 500;
+    }
+
+    .badge-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      border-radius: 12px;
+      padding: 4px 10px;
+      transition: transform 0.2s ease;
+      cursor: default;
+    }
+
+    .badge:hover {
+      transform: translateY(-2px);
+    }
+
+    .badge-filled {
+      background: #FFF1B9;
+      color: #004d66;
+      box-shadow: 0 2px 5px rgba(255, 241, 185, 0.4);
+    }
+
+    .badge-outline {
+      background: #ffffff;
+      color: #006888;
+      border: 1.5px solid #006888;
+      padding: 2.5px 8.5px;
+    }
+
+    /* ② 우산 리포트 카드 */
+    .character-speech-block {
+      background: #FFFDF0; /* 아주 연한 노란색 배경 톤 */
+      border: 1.5px dashed #FFF1B9; /* 대시 노란색 테두리 */
+      border-radius: 16px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .mini-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 2px solid #61c2e6;
+      box-shadow: 0 0 0 2px #FFF1B9; /* 말풍선 오리 아바타 이중 서클 효과 */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .mini-avatar img {
+      width: 80%;
+      height: 80%;
+      object-fit: contain;
+    }
+
+    .speech-bubble-wrapper {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .speech-bubble {
+      background: #ffffff;
+      border: 2px solid #61c2e6;
+      border-radius: 12px 12px 12px 4px;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #333333;
+      position: relative;
+    }
+
+    .speech-sub {
+      font-size: 11px;
+      color: #90a4ae;
+      margin-top: 4px;
+      margin-left: 2px;
+      font-weight: 500;
+    }
+
+    /* 게이지 바 */
+    .gauge-block {
+      margin-bottom: 20px;
+    }
+
+    .gauge-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: #333333;
+      margin-bottom: 8px;
+    }
+
+    .gauge-title {
+      color: #555555;
+    }
+
+    .gauge-value {
+      color: #006888;
+    }
+
+    .gauge-track {
+      width: 100%;
+      height: 10px;
+      background: #EBF6FF;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .gauge-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #61c2e6, #006888);
+      border-radius: 5px;
+      width: 0%;
+      transition: width 0.8s ease; /* 0.8s ease 애니메이션 */
+    }
+
+    /* 통계 그리드 */
+    .stats-grid {
+      display: flex;
+      gap: 10px;
+    }
+
+    .stat-box {
+      flex: 1;
+      background: #f7f9fc;
+      border-radius: 12px;
+      padding: 12px 8px;
+      text-align: center;
+      transition: background-color 0.2s;
+    }
+
+    .stat-box:hover {
+      background: #eef2f6;
+    }
+
+    .stat-num {
+      font-size: 22px;
+      font-weight: 800;
+      color: #006888;
+      margin-bottom: 2px;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: #90a4ae;
+      font-weight: 600;
+    }
+
+    /* ③ 레벨 & XP 카드 */
+    .level-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .level-icon-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #FFF1B9; /* 전체 테마 연동을 위한 부드러운 옐로우 포인트 */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #006888;
+      font-size: 22px;
+      font-weight: 600;
+      flex-shrink: 0;
+      box-shadow: 0 2px 6px rgba(255, 241, 185, 0.5);
+    }
+
+    .level-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .level-name {
+      font-size: 15px;
+      font-weight: 800;
+      color: #333333;
+    }
+
+    .level-subtext {
+      font-size: 12px;
+      color: #90a4ae;
+      font-weight: 500;
+    }
+
+    .xp-block {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .xp-track {
+      width: 100%;
+      height: 8px;
+      background: #EBF6FF;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .xp-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #61c2e6, #006888);
+      border-radius: 4px;
+      width: 0%;
+      transition: width 0.8s ease; /* 0.8s ease 애니메이션 */
+    }
+
+    .xp-values {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #90a4ae;
+      font-weight: 600;
+    }
+
+    /* 하단 네비게이션 바 */
+    .bottom-nav {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 40px);
+      max-width: 360px;
+      height: 70px;
+      background: #f6fbfe;
+      border: 1px solid #e0f0f5;
+      border-radius: 35px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 100;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      color: #61c2e6;
+      font-size: 11px;
+      font-weight: 400;
+      margin-top: 2px;
+    }
+
+    .nav-item.active {
+      color: #006888;
+    }
+
+    .nav-icon {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+    }
+  </style>
+
+  <script>
+    // 인터랙션용 설정 변수
+    const umbrellaIndex = 83; // 우산 지수 값 (0 ~ 100)
+    const currentXP = 650;     // 현재 XP
+    const maxXP = 1000;        // 목표 XP
+
+    window.addEventListener('DOMContentLoaded', () => {
+      // 1. 우산 지수에 따른 말풍선 분기 로직
+      const commentEl = document.getElementById('umbrella-comment');
+      const subtextEl = document.getElementById('umbrella-subtext');
+      const pctTextEl = document.getElementById('umbrella-pct-text');
+      
+      let commentText = "";
+      if (umbrellaIndex >= 90) {
+        commentText = "완벽해요, 우산 고수시네요!";
+      } else if (umbrellaIndex >= 50) {
+        commentText = "제법인데요, 조금만 더!";
+      } else {
+        commentText = "저 좀 더 챙겨주세요…";
+      }
+      
+      commentEl.textContent = commentText;
+      subtextEl.textContent = `이번 달 우산 지수 ${umbrellaIndex}%`;
+      pctTextEl.textContent = `${umbrellaIndex}%`;
+
+      // 2. XP 레벨 카드 텍스트 주입
+      const remainingXP = maxXP - currentXP;
+      document.getElementById('xp-remaining-text').textContent = `다음 레벨까지 ${remainingXP} XP`;
+      document.getElementById('xp-current-text').textContent = `${currentXP} XP`;
+      document.getElementById('xp-max-text').textContent = `${maxXP} XP`;
+
+      // 3. 페이지 진입 후 애니메이션 트리거 (게이지 & XP 바 채우기)
+      setTimeout(() => {
+        // 우산 지수 게이지 채우기
+        const gaugeFill = document.getElementById('umbrella-gauge-fill');
+        gaugeFill.style.width = `${umbrellaIndex}%`;
+
+        // XP 진행 바 채우기
+        const xpPercent = Math.min((currentXP / maxXP) * 100, 100);
+        const xpFill = document.getElementById('xp-fill');
+        xpFill.style.width = `${xpPercent}%`;
+      }, 100);
+    });
+  </script>
+</body>
+
+</html>
