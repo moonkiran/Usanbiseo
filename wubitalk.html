@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>우비톡 - 우산비서</title>
+  <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+</head>
+
+<body>
+  <div class="chat-container">
+    <!-- 상단 헤더 -->
+    <header class="app-header">
+      <button class="back-btn" onclick="history.back()">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+      </button>
+      <h1 class="page-title">
+        우비톡 <img src="images/wubitalk_title_icon.png" alt="아이콘" class="title-icon">
+      </h1>
+      <div class="profile-icon">
+        <img src="images/duck_profile.png" alt="프로필">
+      </div>
+    </header>
+
+    <!-- 메인 대화 영역 -->
+    <main class="chat-area">
+      <!-- 우비 캐릭터 및 말풍선 -->
+      <div class="welcome-section">
+        <img src="images/duck_character.png" alt="우비" class="duck-char">
+        <div class="speech-bubble">
+          안녕하세요! 저는 우비예요<br>
+          오늘 날씨 관련 궁금한 게 있으시면<br>
+          뭐든 물어보세요!
+        </div>
+      </div>
+
+      <!-- AI 추천 질문 -->
+      <div class="recommendations">
+        <p class="rec-title">AI 추천 질문</p>
+        <button class="rec-btn">오늘 빨래 돌려도 될까?</button>
+        <button class="rec-btn">오늘 세차해도 될까?</button>
+        <button class="rec-btn">몇시부터 야외운동 해도 될까?</button>
+        <button class="rec-btn">오늘 큰 우산 챙길까 작은 우산 챙길까?</button>
+      </div>
+    </main>
+
+    <!-- 메시지 입력 영역 -->
+    <div class="input-area">
+      <input type="text" class="input-field" placeholder="메시지 입력...">
+      <button class="send-btn">
+        <!-- 종이비행기 아이콘 -->
+        <svg viewBox="0 0 24 24">
+          <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- 하단 네비게이션 -->
+    <nav class="bottom-nav">
+      <a href="dashboard.html" class="nav-item">
+        <img src="images/nav_weather_inactive.png" alt="날씨 아이콘" class="nav-icon">
+        <span>날씨</span>
+      </a>
+      <a href="schedule.html" class="nav-item">
+        <img src="images/nav_schedule.png" alt="일정 아이콘" class="nav-icon">
+        <span>일정</span>
+      </a>
+      <a href="wubitalk.html" class="nav-item active">
+        <img src="images/nav_wubitalk.png" alt="우비톡 아이콘" class="nav-icon">
+        <span>우비톡</span>
+      </a>
+      <a href="#" class="nav-item">
+        <img src="images/nav_settings.png" alt="설정 아이콘" class="nav-icon">
+        <span>설정</span>
+      </a>
+    </nav>
+  </div>
+<style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, input, button {
+      font-family: 'Manrope', -apple-system, sans-serif;
+    }
+
+    body {
+      background-color: #e2e8f0;
+      display: flex;
+      justify-content: center;
+    }
+
+    .chat-container {
+      width: 100%;
+      max-width: 400px;
+      min-height: 100vh;
+      background-color: #f4f6f9;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 180px;
+    }
+
+    /* 헤더 */
+    .app-header {
+      background-color: #61c2e6;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 20px;
+      color: #ffffff;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .back-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .back-btn svg {
+      width: 22px;
+      height: 22px;
+      stroke: #ffffff;
+      stroke-width: 2.5;
+      fill: none;
+    }
+
+    .page-title {
+      font-family: 'Jua', sans-serif;
+      font-size: 22px;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .title-icon {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+    }
+
+    .profile-icon {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .profile-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    /* 메인 채팅 영역 */
+    .chat-area {
+      padding: 40px 24px;
+      flex-grow: 1;
+    }
+
+    .welcome-section {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .duck-char {
+      width: 80px;
+      height: auto;
+      margin-top: 10px;
+    }
+
+    .speech-bubble {
+      position: relative;
+      background: #ffffff;
+      border: 1.5px solid #99d6f3;
+      border-radius: 20px;
+      padding: 16px 20px;
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #222;
+      font-weight: 500;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+    }
+
+    .speech-bubble::before {
+      content: '';
+      position: absolute;
+      top: 30px;
+      left: -6px;
+      transform: translateY(-50%) rotate(45deg);
+      width: 10px;
+      height: 10px;
+      background: #ffffff;
+      border-left: 1.5px solid #99d6f3;
+      border-bottom: 1.5px solid #99d6f3;
+    }
+
+    /* AI 추천 질문 */
+    .recommendations {
+      margin: 10px auto 0;
+      width: 70%;
+    }
+
+    .rec-title {
+      font-size: 11px;
+      color: #888;
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
+
+    .rec-btn {
+      width: 100%;
+      background: #ffffff;
+      border: 1.5px solid #ffe66d;
+      border-radius: 18px;
+      padding: 12px 18px;
+      text-align: left;
+      font-size: 11px;
+      color: #666;
+      margin-bottom: 10px;
+      cursor: pointer;
+      font-family: 'Manrope', sans-serif;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+    .rec-btn:active {
+      background: #fafafa;
+    }
+
+    /* 입력창 영역 */
+    .input-area {
+      position: fixed;
+      bottom: 110px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 40px);
+      max-width: 360px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 50;
+    }
+
+    .input-field {
+      flex: 1;
+      height: 48px;
+      background: #e4e2e1;
+      border: none;
+      border-radius: 24px;
+      padding: 0 20px;
+      font-size: 14px;
+      color: #333;
+      outline: none;
+    }
+
+    .input-field::placeholder {
+      color: #888;
+    }
+
+    .send-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #61c2e6;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .send-btn svg {
+      width: 22px;
+      height: 22px;
+      fill: #000000;
+      margin-right: 2px;
+      margin-top: 2px;
+    }
+
+    /* 하단 네비게이션 바 */
+    .bottom-nav {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 40px);
+      max-width: 360px;
+      height: 70px;
+      background: #f6fbfe;
+      border: 1px solid #e0f0f5;
+      border-radius: 35px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 100;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      color: #61c2e6;
+      font-size: 11px;
+      font-weight: 400;
+      margin-top: 2px;
+    }
+
+    .nav-item.active {
+      color: #006888;
+    }
+
+    .nav-icon {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+    }
+  </style>
+</body>
+</html>
