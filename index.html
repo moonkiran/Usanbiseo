@@ -18,8 +18,8 @@
     <div id="main" class="screen hidden">
       <img src="images/main.jpg" alt="우산비서 메인" />
       <div class="action-container">
-        <a href="login.html" class="btn btn-login">로그인</a>
-        <a href="signup.html" class="btn btn-signup">회원가입</a>
+        <a href="login.html" class="btn btn-login" onclick="localStorage.removeItem('fromSignup')">로그인</a>
+        <a href="signup.html" class="btn btn-signup" onclick="localStorage.setItem('fromSignup', 'true')">회원가입</a>
       </div>
     </div>
   </div>

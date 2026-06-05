@@ -465,6 +465,9 @@
       padding: 24px 20px;
       position: relative;
       z-index: 10;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     .location {
@@ -514,6 +517,9 @@
       position: relative;
       z-index: 10;
       gap: 2px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     .speech-bubble {
@@ -563,6 +569,9 @@
       margin-top: 80px;
       position: relative;
       z-index: 10;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     .weather-desc {
@@ -619,6 +628,9 @@
       flex-grow: 1;
       position: relative;
       z-index: 20;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     .section {
@@ -760,7 +772,7 @@
       position: fixed;
       bottom: 20px;
       left: 50%;
-      transform: translateX(-50%);
+      transform: translateX(-50%) translateY(30px);
       width: calc(100% - 40px);
       max-width: 360px;
       height: 70px;
@@ -772,6 +784,8 @@
       align-items: center;
       z-index: 100;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+      opacity: 0;
+      transition: opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     .nav-item {
@@ -794,6 +808,37 @@
       width: 28px;
       height: 28px;
       object-fit: contain;
+    }
+
+    /* 3번 인터랙션 (Staggered Pop-up) 활성화 상태 */
+    .dashboard-container.loaded .top-bar,
+    .dashboard-container.loaded .message-area,
+    .dashboard-container.loaded .current-weather,
+    .dashboard-container.loaded .bottom-sheet {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .dashboard-container.loaded .bottom-nav {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* 각 컴포넌트 시차 딜레이 적용 */
+    .dashboard-container.loaded .top-bar {
+      transition-delay: 0.05s;
+    }
+    .dashboard-container.loaded .message-area {
+      transition-delay: 0.15s;
+    }
+    .dashboard-container.loaded .current-weather {
+      transition-delay: 0.25s;
+    }
+    .dashboard-container.loaded .bottom-sheet {
+      transition-delay: 0.35s;
+    }
+    .dashboard-container.loaded .bottom-nav {
+      transition-delay: 0.45s;
     }
   </style>
   <script>
@@ -884,6 +929,11 @@
         // 스크롤 설정 완료 후 다시 smooth 원복
         scrollContainer.style.scrollBehavior = 'smooth';
       }
+
+      // 3번 인터랙션 로드 클래스 추가
+      setTimeout(() => {
+        document.querySelector('.dashboard-container').classList.add('loaded');
+      }, 50);
     });
   </script>
 </body>
