@@ -13,64 +13,68 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
-      background-color: #eef2f7;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .login-container {
-      background-color: #eef2f7;
-      width: 100%;
-      max-width: 400px;
+      background-color: #f7f9fc;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 48px 28px 40px;
     }
 
-    /* 타이틀 */
+    /* 상단 헤더 (로그인 타이틀) */
+    .header-area {
+      width: 100%;
+      text-align: center;
+      padding: 24px 0 16px;
+      border-bottom: 1px solid #e2eaf0;
+      background-color: #f7f9fc;
+    }
+
     .login-title {
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 700;
-      color: #1a1a2e;
-      margin-bottom: 28px;
-      letter-spacing: -0.3px;
+      color: #333;
+      letter-spacing: -0.5px;
+    }
+
+    /* 메인 컨테이너 */
+    .login-container {
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      padding: 32px 28px 40px;
+      background-color: #f7f9fc;
     }
 
     /* 진행 단계 인디케이터 */
     .step-indicator {
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 40px;
       width: 100%;
-      justify-content: center;
+      margin-bottom: 40px;
     }
 
     .step-line {
       flex: 1;
       height: 1.5px;
-      background-color: #c8d5e0;
-      max-width: 60px;
+      background-color: #d6e8f4;
     }
 
     .step-dot {
       width: 12px;
       height: 12px;
       border-radius: 50%;
+      margin: 0 4px;
     }
 
     .step-dot.blue {
-      background-color: #4a90d9;
+      background-color: #61c2e6;
     }
 
     .step-dot.yellow {
-      background-color: #f5c842;
-      width: 14px;
-      height: 14px;
+      background-color: #fae178;
+      width: 16px;
+      height: 16px;
     }
 
     /* 입력 폼 영역 */
@@ -79,48 +83,43 @@
       display: flex;
       gap: 12px;
       align-items: flex-start;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
 
     .inputs-wrapper {
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 16px;
     }
 
     .input-group {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 8px;
     }
 
     .input-label {
-      font-size: 13px;
-      font-weight: 600;
-      color: #2d3a4a;
-      padding-left: 2px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #333;
+      line-height: 20px;
     }
 
     .input-field {
       width: 100%;
-      height: 52px;
+      height: 48px;
       background-color: #ffffff;
-      border: 1.5px solid #d8e3ec;
-      border-radius: 12px;
-      padding: 0 16px;
+      border: 1.5px solid #7bc6e8;
+      border-radius: 6px;
+      padding: 0 14px;
       font-size: 14px;
-      color: #2d3a4a;
+      color: #333;
       outline: none;
-      transition: border-color 0.2s ease;
     }
 
     .input-field::placeholder {
-      color: #b0bec5;
-    }
-
-    .input-field:focus {
-      border-color: #4a90d9;
+      color: #999;
     }
 
     .password-wrapper {
@@ -128,54 +127,44 @@
     }
 
     .password-wrapper .input-field {
-      padding-right: 48px;
+      padding-right: 44px;
     }
 
     .toggle-pw {
       position: absolute;
-      right: 14px;
+      right: 12px;
       top: 50%;
       transform: translateY(-50%);
       background: none;
       border: none;
       cursor: pointer;
-      padding: 4px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
     .toggle-pw svg {
-      width: 20px;
-      height: 20px;
+      width: 22px;
+      height: 22px;
       fill: none;
-      stroke: #90a4ae;
-      stroke-width: 1.8;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+      stroke: #555;
+      stroke-width: 2;
     }
 
     /* 확인 버튼 */
     .confirm-btn {
-      width: 72px;
-      height: 112px;
-      background: linear-gradient(160deg, #54b8e8, #3a9bce);
+      width: 76px;
+      height: 140px;
+      background-color: #61c2e6;
       border: none;
-      border-radius: 14px;
+      border-radius: 6px;
       color: #ffffff;
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 700;
       cursor: pointer;
       flex-shrink: 0;
-      margin-top: 22px;
-      letter-spacing: -0.3px;
-      box-shadow: 0 4px 14px rgba(74, 144, 217, 0.35);
-      transition: opacity 0.2s, transform 0.15s;
-    }
-
-    .confirm-btn:active {
-      opacity: 0.88;
-      transform: scale(0.97);
+      margin-top: 28px;
+      box-shadow: 0 4px 10px rgba(97, 194, 230, 0.3);
     }
 
     /* 자동로그인 */
@@ -184,66 +173,71 @@
       align-items: center;
       gap: 8px;
       width: 100%;
-      margin-bottom: 32px;
-      padding-left: 2px;
+      margin-bottom: 24px;
     }
 
     .auto-login-checkbox {
-      width: 16px;
-      height: 16px;
-      border: 1.5px solid #90a4ae;
-      border-radius: 3px;
+      width: 18px;
+      height: 18px;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
       cursor: pointer;
       appearance: none;
       -webkit-appearance: none;
       background-color: #fff;
-      flex-shrink: 0;
-      transition: border-color 0.2s;
     }
 
     .auto-login-checkbox:checked {
-      background-color: #4a90d9;
-      border-color: #4a90d9;
+      background-color: #61c2e6;
+      border-color: #61c2e6;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+      background-size: 12px 12px;
+      background-position: center;
+      background-repeat: no-repeat;
     }
 
     .auto-login-label {
-      font-size: 13px;
-      color: #546e7a;
+      font-size: 14px;
+      color: #475569;
       cursor: pointer;
     }
 
     /* OR 구분선 */
     .or-divider {
-      display: flex;
-      align-items: center;
+      position: relative;
       width: 100%;
-      gap: 14px;
-      margin-bottom: 22px;
+      text-align: center;
+      margin-bottom: 30px;
     }
 
-    .or-divider-line {
-      flex: 1;
+    .or-divider::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
       height: 1px;
-      background-color: #c8d5e0;
+      background-color: #e2eaf0;
+      z-index: 1;
     }
 
     .or-text {
-      font-size: 13px;
-      color: #90a4ae;
+      position: relative;
+      z-index: 2;
+      background-color: #f7f9fc;
+      padding: 0 16px;
+      color: #a0aab5;
+      font-size: 14px;
       font-weight: 500;
-      padding: 4px 8px;
-      border: 1.5px solid #c8d5e0;
-      border-radius: 20px;
-      background-color: #eef2f7;
     }
 
     /* 소셜 로그인 버튼 */
     .social-btns {
       display: flex;
       flex-direction: column;
-      gap: 11px;
+      gap: 12px;
       width: 100%;
-      margin-bottom: 32px;
+      margin-bottom: 40px;
     }
 
     .social-btn {
@@ -252,27 +246,14 @@
       justify-content: center;
       gap: 10px;
       width: 100%;
-      height: 52px;
-      border-radius: 13px;
-      border: 1.5px solid #dce6ee;
+      height: 48px;
+      border-radius: 6px;
+      border: 1px solid #e2eaf0;
       background-color: #ffffff;
-      font-size: 14px;
-      font-weight: 600;
+      font-size: 15px;
+      font-weight: 700;
+      color: #333;
       cursor: pointer;
-      transition: background-color 0.18s, transform 0.12s;
-      color: #2d3a4a;
-    }
-
-    .social-btn:active {
-      transform: scale(0.98);
-    }
-
-    .social-btn.apple {
-      color: #1a1a2e;
-    }
-
-    .social-btn.google {
-      color: #2d3a4a;
     }
 
     .social-btn.naver {
@@ -281,52 +262,46 @@
       color: #ffffff;
     }
 
-    /* 소셜 아이콘 */
     .social-icon {
-      width: 22px;
-      height: 22px;
+      width: 20px;
+      height: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-shrink: 0;
     }
 
     /* 하단 링크 */
     .bottom-links {
       display: flex;
       align-items: center;
-      gap: 0;
+      justify-content: center;
+      gap: 16px;
+      width: 100%;
     }
 
     .bottom-link {
-      font-size: 13px;
-      color: #78909c;
-      cursor: pointer;
+      font-size: 14px;
+      color: #555;
       text-decoration: none;
       background: none;
       border: none;
-      font-family: inherit;
-      transition: color 0.2s;
-    }
-
-    .bottom-link:hover {
-      color: #4a90d9;
+      cursor: pointer;
     }
 
     .bottom-divider {
       width: 1px;
       height: 12px;
-      background-color: #c8d5e0;
-      margin: 0 14px;
+      background-color: #d1d9e0;
     }
   </style>
 </head>
 <body>
-  <div class="login-container">
-
-    <!-- 타이틀 -->
+  <!-- 상단 헤더 -->
+  <div class="header-area">
     <h1 class="login-title">로그인</h1>
+  </div>
 
+  <div class="login-container">
     <!-- 단계 인디케이터 -->
     <div class="step-indicator">
       <div class="step-line"></div>
@@ -343,22 +318,12 @@
       <div class="inputs-wrapper">
         <div class="input-group">
           <label class="input-label" for="email">이메일</label>
-          <input
-            id="email"
-            class="input-field"
-            type="email"
-            placeholder="example@email.com"
-          >
+          <input id="email" class="input-field" type="email" placeholder="example@email.com">
         </div>
         <div class="input-group">
           <label class="input-label" for="password">비밀번호</label>
           <div class="password-wrapper">
-            <input
-              id="password"
-              class="input-field"
-              type="password"
-              placeholder="••••••••"
-            >
+            <input id="password" class="input-field" type="password" placeholder="••••••••">
             <button class="toggle-pw" type="button" onclick="togglePassword()" aria-label="비밀번호 보기">
               <svg id="eye-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
@@ -381,27 +346,23 @@
 
     <!-- OR 구분선 -->
     <div class="or-divider">
-      <div class="or-divider-line"></div>
       <span class="or-text">OR</span>
-      <div class="or-divider-line"></div>
     </div>
 
     <!-- 소셜 로그인 버튼 -->
     <div class="social-btns">
-      <!-- Apple -->
       <button class="social-btn apple" type="button">
         <span class="social-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
           </svg>
         </span>
         애플 계정으로 로그인하기
       </button>
 
-      <!-- Google -->
       <button class="social-btn google" type="button">
         <span class="social-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
             <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
             <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
@@ -411,16 +372,15 @@
         구글 계정으로 로그인하기
       </button>
 
-      <!-- Naver -->
       <button class="social-btn naver" type="button">
-        <span class="social-icon" style="font-weight:900;font-size:17px;color:#fff;font-family:sans-serif;letter-spacing:-1px;">N</span>
+        <span class="social-icon" style="font-weight:900;font-size:16px;">N</span>
         네이버 계정으로 로그인하기
       </button>
     </div>
 
     <!-- 하단 링크 -->
     <div class="bottom-links">
-      <button class="bottom-link" type="button">비밀번호 찾기</button>
+      <a href="find_pw.html" class="bottom-link">비밀번호 찾기</a>
       <div class="bottom-divider"></div>
       <a href="signup.html" class="bottom-link">회원가입</a>
     </div>
@@ -453,7 +413,6 @@
         alert('이메일과 비밀번호를 입력해주세요.');
         return;
       }
-      // 실제 로그인 처리 로직 추가 가능
       alert('로그인이 완료되었습니다!');
     }
   </script>
