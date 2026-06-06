@@ -1,263 +1,289 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>우산비서 - 환영합니다</title>
-  <meta name="description" content="우산비서에 가입하신 것을 환영합니다! 당신의 우산을 잊지 않고 챙길 수 있도록 비서처럼 매일 날씨에 맞춘 세심한 가이드를 제공합니다.">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
-</head>
-<body>
-  <div id="welcomeAppContainer" class="app-container" onclick="goToDashboard()">
-    <!-- SEO용 h1 헤딩 태그 -->
-    <h1 class="visually-hidden">우산비서 회원가입 완료 환영 페이지</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>우산비서 - 환영합니다</title>
+    <meta
+      name="description"
+      content="우산비서에 가입하신 것을 환영합니다! 당신의 우산을 잊지 않고 챙길 수 있도록 비서처럼 매일 날씨에 맞춘 세심한 가이드를 제공합니다."
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div
+      id="welcomeAppContainer"
+      class="app-container"
+      onclick="goToDashboard()"
+    >
+      <!-- SEO용 h1 헤딩 태그 -->
+      <h1 class="visually-hidden">우산비서 회원가입 완료 환영 페이지</h1>
 
-    <!-- ① 말풍선 -->
-    <div class="speech-bubble-wrapper">
-      <div class="speech-bubble" id="welcome-bubble"></div>
+      <!-- ① 말풍선 -->
+      <div class="speech-bubble-wrapper">
+        <div class="speech-bubble" id="welcome-bubble"></div>
+      </div>
+
+      <!-- ② 우비 오리 캐릭터 -->
+      <div class="character-container">
+        <img
+          src="images/duck_character.png"
+          alt="우비 오리 캐릭터"
+          class="duck-char"
+        />
+        <div class="duck-shadow"></div>
+      </div>
+
+      <!-- 터치 안내 가이드 -->
+      <div id="skipGuide" class="skip-guide">
+        화면을 터치하면 바로 홈으로 이동합니다
+      </div>
     </div>
 
-    <!-- ② 우비 오리 캐릭터 -->
-    <div class="character-container">
-      <img src="images/duck_character.png" alt="우비 오리 캐릭터" class="duck-char">
-      <div class="duck-shadow"></div>
-    </div>
+    <script>
+      const bubble = document.getElementById("welcome-bubble");
+      const welcomeText =
+        "안녕하세요<br>저는 당신의 우산비서에요<br>이제 당신이 우산을 놓고 가는 일이 없도록<br>제가 우산을 챙겨줄게요!";
+      let typingTimeout;
 
-    <!-- 터치 안내 가이드 -->
-    <div id="skipGuide" class="skip-guide">화면을 터치하면 바로 홈으로 이동합니다</div>
-  </div>
+      // 타이핑 애니메이션 실행
+      function startTyping(text) {
+        let currentIdx = 0;
+        let isTag = false;
+        let htmlContent = "";
+        bubble.innerHTML = "";
 
-  <script>
-    const bubble = document.getElementById("welcome-bubble");
-    const welcomeText = "안녕하세요<br>저는 당신의 우산비서에요<br>이제 당신이 우산을 놓고 가는 일이 없도록<br>제가 우산을 챙겨줄게요!";
-    let typingTimeout;
+        function typeWriter() {
+          if (currentIdx < text.length) {
+            const char = text.charAt(currentIdx);
 
-    // 타이핑 애니메이션 실행
-    function startTyping(text) {
-      let currentIdx = 0;
-      let isTag = false;
-      let htmlContent = "";
-      bubble.innerHTML = "";
+            if (char === "<") isTag = true;
 
-      function typeWriter() {
-        if (currentIdx < text.length) {
-          const char = text.charAt(currentIdx);
-          
-          if (char === "<") isTag = true;
-          
-          htmlContent += char;
-          bubble.innerHTML = htmlContent;
-          currentIdx++;
-          
-          if (isTag) {
-            if (char === ">") {
-              isTag = false;
-              typeWriter();
+            htmlContent += char;
+            bubble.innerHTML = htmlContent;
+            currentIdx++;
+
+            if (isTag) {
+              if (char === ">") {
+                isTag = false;
+                typeWriter();
+              } else {
+                typeWriter();
+              }
             } else {
-              typeWriter();
+              // 글자 단위 타이핑 속도 (50ms)
+              typingTimeout = setTimeout(typeWriter, 50);
             }
           } else {
-            // 글자 단위 타이핑 속도 (50ms)
-            typingTimeout = setTimeout(typeWriter, 50);
+            // 타이핑이 모두 완료되면 1.5초 후 대시보드로 이동
+            setTimeout(goToDashboard, 1500);
           }
-        } else {
-          // 타이핑이 모두 완료되면 1.5초 후 대시보드로 이동
-          setTimeout(goToDashboard, 1500);
         }
+        typeWriter();
       }
-      typeWriter();
-    }
 
-    let isTransitioning = false;
+      let isTransitioning = false;
 
-    // 대시보드로 리다이렉트
-    function goToDashboard() {
-      if (isTransitioning) return;
-      isTransitioning = true;
-      clearTimeout(typingTimeout);
-      
-      const container = document.getElementById("welcomeAppContainer");
-      container.classList.add("fade-out");
-      
-      setTimeout(() => {
-        location.href = "dashboard.html";
-      }, 500);
-    }
+      // 대시보드로 리다이렉트
+      function goToDashboard() {
+        if (isTransitioning) return;
+        isTransitioning = true;
+        clearTimeout(typingTimeout);
 
-    // DOM 로드 완료 후 타이핑 시작
-    document.addEventListener("DOMContentLoaded", () => {
-      // 0.8초 딜레이 후 말풍선 타이핑 시작
-      setTimeout(() => {
-        startTyping(welcomeText);
-      }, 800);
-    });
-  </script>
+        const container = document.getElementById("welcomeAppContainer");
+        container.classList.add("fade-out");
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Noto Sans KR', -apple-system, sans-serif;
-    }
+        setTimeout(() => {
+          location.href = "dashboard.html";
+        }, 500);
+      }
 
-    body {
-      background-color: #e2e8f0;
-      display: flex;
-      justify-content: center;
-      overflow: hidden;
-      height: 100vh;
-    }
+      // DOM 로드 완료 후 타이핑 시작
+      document.addEventListener("DOMContentLoaded", () => {
+        // 0.8초 딜레이 후 말풍선 타이핑 시작
+        setTimeout(() => {
+          startTyping(welcomeText);
+        }, 800);
+      });
+    </script>
 
-    /* SEO 및 웹 접근성을 위한 숨김 스타일 */
-    .visually-hidden {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
-    }
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family:
+          "Noto Sans KR",
+          -apple-system,
+          sans-serif;
+      }
 
-    /* 모바일 앱 쉘 컨테이너 */
-    .app-container {
-      width: 100%;
-      max-width: 390px;
-      height: 100vh;
-      background-color: #EBF6FF; /* 이미지의 부드러운 연한 파란색 배경 */
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      overflow: hidden;
-      cursor: pointer; /* 클릭/터치하면 스킵 가능 */
-      transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .app-container.fade-out {
-      opacity: 0;
-      transform: scale(0.96);
-    }
-
-    @media (max-width: 430px) {
-      .app-container {
-        max-width: 100vw;
+      body {
+        background-color: #e2e8f0;
+        display: flex;
+        justify-content: center;
+        overflow: hidden;
         height: 100vh;
       }
-    }
 
-    /* ① 말풍선 영역 */
-    .speech-bubble-wrapper {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      margin-bottom: 50px;
-      position: relative;
-      opacity: 0;
-      transform: translateY(-20px);
-      animation: slideDownFade 0.6s ease forwards 0.3s;
-    }
-
-    .speech-bubble {
-      background-color: #ffffff;
-      border-radius: 28px;
-      padding: 24px 28px;
-      width: 100%;
-      max-width: 320px;
-      text-align: center;
-      font-size: 16.5px;
-      font-weight: 700;
-      color: #54B6EC; /* 이미지의 예쁜 하늘색 글씨 */
-      line-height: 1.6;
-      position: relative;
-      box-shadow: 0 8px 24px rgba(0, 80, 160, 0.04);
-      word-break: keep-all;
-    }
-
-    /* 말풍선 꼬리 */
-    .speech-bubble::after {
-      content: '';
-      position: absolute;
-      bottom: -14px;
-      left: 50%;
-      transform: translateX(-50%);
-      border-width: 14px 12px 0;
-      border-style: solid;
-      border-color: #ffffff transparent;
-      display: block;
-      width: 0;
-    }
-
-    /* ② 캐릭터 구역 */
-    .character-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      margin-top: 10px;
-      opacity: 0;
-      transform: scale(0.9);
-      animation: scaleUpFade 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards 0.5s;
-    }
-
-    .duck-char {
-      width: 145px;
-      height: auto;
-      object-fit: contain;
-      display: block;
-      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.02));
-    }
-
-    /* 캐릭터 바닥 그림자 */
-    .duck-shadow {
-      width: 160px;
-      height: 16px;
-      background: rgba(0, 60, 120, 0.06);
-      border-radius: 50%;
-      margin-top: 15px;
-      filter: blur(2px);
-    }
-
-    /* 터치 안내 가이드 */
-    .skip-guide {
-      position: absolute;
-      bottom: 40px;
-      font-size: 11px;
-      color: #8bbce4;
-      font-weight: 500;
-      opacity: 0;
-      letter-spacing: -0.3px;
-      animation: pulseFadeIn 2s ease infinite alternate 1.5s;
-    }
-
-    /* 애니메이션 키프레임 */
-    @keyframes slideDownFade {
-      to {
-        opacity: 1;
-        transform: translateY(0);
+      /* SEO 및 웹 접근성을 위한 숨김 스타일 */
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
       }
-    }
 
-    @keyframes scaleUpFade {
-      to {
-        opacity: 1;
-        transform: scale(1);
+      /* 모바일 앱 쉘 컨테이너 */
+      .app-container {
+        width: 100%;
+        max-width: 390px;
+        height: 100vh;
+        background-color: #ebf6ff; /* 이미지의 부드러운 연한 파란색 배경 */
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        overflow: hidden;
+        cursor: pointer; /* 클릭/터치하면 스킵 가능 */
+        transition:
+          opacity 0.5s ease,
+          transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
       }
-    }
 
-    @keyframes pulseFadeIn {
-      0% {
-        opacity: 0.2;
+      .app-container.fade-out {
+        opacity: 0;
+        transform: scale(0.96);
       }
-      100% {
-        opacity: 0.6;
+
+      @media (max-width: 430px) {
+        .app-container {
+          max-width: 100vw;
+          height: 100vh;
+        }
       }
-    }
-  </style>
-</body>
+
+      /* ① 말풍선 영역 */
+      .speech-bubble-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 50px;
+        position: relative;
+        opacity: 0;
+        transform: translateY(-20px);
+        animation: slideDownFade 0.6s ease forwards 0.3s;
+      }
+
+      .speech-bubble {
+        background-color: #ffffff;
+        border-radius: 28px;
+        padding: 24px 28px;
+        width: 100%;
+        max-width: 320px;
+        text-align: center;
+        font-size: 16.5px;
+        font-weight: 700;
+        color: #54b6ec; /* 이미지의 예쁜 하늘색 글씨 */
+        line-height: 1.6;
+        position: relative;
+        box-shadow: 0 8px 24px rgba(0, 80, 160, 0.04);
+        word-break: keep-all;
+      }
+
+      /* 말풍선 꼬리 */
+      .speech-bubble::after {
+        content: "";
+        position: absolute;
+        bottom: -14px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-width: 14px 12px 0;
+        border-style: solid;
+        border-color: #ffffff transparent;
+        display: block;
+        width: 0;
+      }
+
+      /* ② 캐릭터 구역 */
+      .character-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 10px;
+        opacity: 0;
+        transform: scale(0.9);
+        animation: scaleUpFade 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards
+          0.5s;
+      }
+
+      .duck-char {
+        width: 145px;
+        height: auto;
+        object-fit: contain;
+        display: block;
+        filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.02));
+      }
+
+      /* 캐릭터 바닥 그림자 */
+      .duck-shadow {
+        width: 160px;
+        height: 16px;
+        background: rgba(0, 60, 120, 0.06);
+        border-radius: 50%;
+        margin-top: 15px;
+        filter: blur(2px);
+      }
+
+      /* 터치 안내 가이드 */
+      .skip-guide {
+        position: absolute;
+        bottom: 40px;
+        font-size: 11px;
+        color: #8bbce4;
+        font-weight: 500;
+        opacity: 0;
+        letter-spacing: -0.3px;
+        animation: pulseFadeIn 2s ease infinite alternate 1.5s;
+      }
+
+      /* 애니메이션 키프레임 */
+      @keyframes slideDownFade {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes scaleUpFade {
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      @keyframes pulseFadeIn {
+        0% {
+          opacity: 0.2;
+        }
+        100% {
+          opacity: 0.6;
+        }
+      }
+    </style>
+  </body>
 </html>
