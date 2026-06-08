@@ -562,6 +562,24 @@
       margin-top: -5px;
       transform: translateX(10%);
       /* 오른쪽으로 10% 이동 */
+      transform-origin: right bottom;
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* 말풍선 팝업 애니메이션 클래스 */
+    .speech-bubble.pop-active {
+      animation: bubblePop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    @keyframes bubblePop {
+      0% {
+        transform: scale(0) translateX(10%);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1) translateX(10%);
+        opacity: 1;
+      }
     }
 
     .speech-bubble::after {
@@ -585,6 +603,9 @@
       margin-top: 35px;
       transform: translateY(20%);
       /* 캐릭터 위치 20% 아래로 이동 */
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     .character img {
@@ -592,6 +613,17 @@
       height: auto;
       object-fit: contain;
       display: block;
+      transition: transform 0.2s ease;
+    }
+
+    /* 캐릭터 호버 시 가벼운 피드백 */
+    .character:hover img {
+      transform: scale(1.03);
+    }
+
+    /* 캐릭터 클릭(누르고 있을 때) 가벼운 스케일 다운 피드백 */
+    .character:active img {
+      transform: scale(0.85);
     }
 
     /* 현재 날씨 요약 */
@@ -973,6 +1005,22 @@
       setTimeout(() => {
         document.querySelector('.dashboard-container').classList.add('loaded');
       }, 50);
+
+      // 캐릭터 클릭 시 말풍선 재팝업되는 인터랙션 추가
+      const character = document.querySelector('.character');
+      const bubble = document.querySelector('.speech-bubble');
+
+      if (character && bubble) {
+        // 첫 페이지 진입 시에도 말풍선이 뿅 나타나도록 초기화
+        bubble.classList.add('pop-active');
+
+        character.addEventListener('click', () => {
+          // 말풍선 재팝업
+          bubble.classList.remove('pop-active');
+          void bubble.offsetWidth; // 리플로우 강제 발생
+          bubble.classList.add('pop-active');
+        });
+      }
     });
   </script>
 </body>
