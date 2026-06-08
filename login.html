@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>로그인 - 우산비서</title>
   <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+  <!-- Google Identity Services (GSI) SDK -->
+  <script src="https://accounts.google.com/gsi/client" onload="initGoogleAuth()" async defer></script>
 </head>
+
 <body>
   <!-- 상단 헤더 -->
   <div class="header-area">
@@ -38,8 +42,8 @@
             <input id="password" class="input-field" type="password" placeholder="••••••••">
             <button class="toggle-pw" type="button" onclick="togglePassword()" aria-label="비밀번호 보기">
               <svg id="eye-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                <circle cx="12" cy="12" r="3"/>
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                <circle cx="12" cy="12" r="3" />
               </svg>
             </button>
           </div>
@@ -63,7 +67,7 @@
 
     <!-- 소셜 로그인 버튼 -->
     <div class="social-btns">
-      <button class="social-btn apple" type="button">
+      <button class="social-btn apple" type="button" onclick="socialLogin('apple')">
         <span class="social-icon">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
@@ -72,7 +76,7 @@
         애플 계정으로 로그인하기
       </button>
 
-      <button class="social-btn google" type="button">
+      <button class="social-btn google" type="button" onclick="socialLogin('google')">
         <span class="social-icon">
           <svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
@@ -84,8 +88,10 @@
         구글 계정으로 로그인하기
       </button>
 
-      <button class="social-btn naver" type="button">
-        <span class="social-icon" style="font-weight:900;font-size:16px;">N</span>
+      <button class="social-btn naver" type="button" onclick="socialLogin('naver')">
+        <span class="social-icon">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYTGQvAcMGQ1WIoku5L0iw6j-why05sXnwKA&s" alt="Naver" style="width: 18px; height: 18px; object-fit: contain; border-radius: 3px;">
+        </span>
         네이버 계정으로 로그인하기
       </button>
     </div>
@@ -95,6 +101,28 @@
       <a href="find_pw.html" class="bottom-link">비밀번호 찾기</a>
       <div class="bottom-divider"></div>
       <a href="signup.html" class="bottom-link">회원가입</a>
+    </div>
+  </div>
+
+  <!-- 테스터/데모용 가상 소셜 로그인 모달 -->
+  <div id="social-modal" class="social-modal-overlay" style="display: none;">
+    <div class="social-modal-content">
+      <div class="social-modal-header">
+        <span id="modal-provider-logo" class="modal-logo"></span>
+        <h3 id="modal-title">소셜 로그인</h3>
+        <button class="close-modal-btn" onclick="closeSocialModal()">&times;</button>
+      </div>
+      <div class="social-modal-body">
+        <div class="user-avatar-area">
+          <div class="user-avatar" id="modal-avatar">👤</div>
+          <p class="demo-notice">테스터(데모) 계정으로 연결됩니다.</p>
+        </div>
+        <div class="modal-info-box">
+          <p><strong>제공 정보:</strong> 이메일, 프로필 이름</p>
+          <p class="info-desc">우산비서 서비스 제공을 위해 위 정보 수집 및 이용에 동의합니다.</p>
+        </div>
+        <button class="modal-submit-btn" id="modal-submit" onclick="completeSocialLogin()">동의하고 시작하기</button>
+      </div>
     </div>
   </div>
 
@@ -125,7 +153,144 @@
         alert('이메일과 비밀번호를 입력해주세요.');
         return;
       }
+      // 로그인 정보 저장
+      localStorage.setItem('userEmail', email);
+      localStorage.setItem('userName', email.split('@')[0]);
+      localStorage.setItem('isLoggedIn', 'true');
+      localStorage.setItem('loginType', 'email');
+
       // 로그인 성공 시 회원가입에서 넘어왔는지 여부 체크
+      if (localStorage.getItem('fromSignup') === 'true') {
+        localStorage.removeItem('fromSignup');
+        location.href = 'welcome.html';
+      } else {
+        location.href = 'dashboard.html';
+      }
+    }
+
+    // 구글 OAuth 및 가상 소셜 로그인 처리 변수
+    let currentProvider = '';
+    let tokenClient;
+
+    // 구글 Identity Services SDK 초기화
+    function initGoogleAuth() {
+      // ⚠️ 여기에 구글 클라이언트 ID를 입력해야 실제 연동이 완료됩니다!
+      // 예: '1234567890-abcdef.apps.googleusercontent.com'
+      const GOOGLE_CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com';
+
+      if (GOOGLE_CLIENT_ID.startsWith('YOUR_')) {
+        console.warn('Google Client ID가 설정되지 않아 구글 실제 로그인은 데모 모드로 동작합니다.');
+        return;
+      }
+
+      try {
+        tokenClient = google.accounts.oauth2.initTokenClient({
+          client_id: GOOGLE_CLIENT_ID,
+          scope: 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
+          callback: (tokenResponse) => {
+            if (tokenResponse && tokenResponse.access_token) {
+              // 액세스 토큰으로 구글의 사용자 정보 요청
+              fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+                headers: { Authorization: `Bearer ${tokenResponse.access_token}` }
+              })
+                .then(res => res.json())
+                .then(userInfo => {
+                  // 구글에서 제공하는 실제 사용자 프로필 정보 저장
+                  localStorage.setItem('userEmail', userInfo.email);
+                  localStorage.setItem('userName', userInfo.name);
+                  localStorage.setItem('userPicture', userInfo.picture || '');
+                  localStorage.setItem('isLoggedIn', 'true');
+                  localStorage.setItem('loginType', 'google');
+
+                  // 로그인 완료 시 페이지 이동
+                  if (localStorage.getItem('fromSignup') === 'true') {
+                    localStorage.removeItem('fromSignup');
+                    location.href = 'welcome.html';
+                  } else {
+                    location.href = 'dashboard.html';
+                  }
+                })
+                .catch(err => {
+                  console.error('구글 프로필 획득 실패:', err);
+                  alert('사용자 정보를 가져오는 도중 오류가 발생했습니다.');
+                });
+            }
+          },
+        });
+      } catch (e) {
+        console.error('Google Auth SDK 초기화 실패:', e);
+      }
+    }
+
+    function socialLogin(provider) {
+      if (provider === 'google') {
+        const GOOGLE_CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com';
+        // 클라이언트 ID가 실제 입력된 경우에만 진짜 소셜 로그인 작동
+        if (!GOOGLE_CLIENT_ID.startsWith('YOUR_')) {
+          if (tokenClient) {
+            tokenClient.requestAccessToken();
+            return;
+          } else {
+            alert('구글 API를 불러오는 중입니다. 잠시 후 다시 시도해 주세요.');
+            return;
+          }
+        }
+      }
+
+      // 구글 클라이언트 ID가 없거나, 다른 소셜 로그인(네이버, 애플)인 경우 모달을 띄워 데모 처리
+      currentProvider = provider;
+      const modal = document.getElementById('social-modal');
+      const logo = document.getElementById('modal-provider-logo');
+      const title = document.getElementById('modal-title');
+      const submitBtn = document.getElementById('modal-submit');
+      const avatar = document.getElementById('modal-avatar');
+
+      logo.className = 'modal-logo ' + provider;
+      submitBtn.className = 'modal-submit-btn ' + provider;
+
+      if (provider === 'apple') {
+        logo.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="#ffffff" xmlns="http://www.w3.org/2000/svg"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>`;
+        title.innerText = 'Apple 계정으로 로그인';
+        avatar.innerHTML = `<svg width="40" height="40" viewBox="0 0 24 24" fill="#1a1a1a" xmlns="http://www.w3.org/2000/svg"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>`;
+      } else if (provider === 'google') {
+        logo.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="#ffffff" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09zM12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23zM5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62zM12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>`;
+        title.innerText = 'Google 계정으로 로그인 (데모)';
+        avatar.innerHTML = `<svg width="40" height="40" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>`;
+      } else if (provider === 'naver') {
+        logo.innerHTML = `<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYTGQvAcMGQ1WIoku5L0iw6j-why05sXnwKA&s" alt="Naver" style="width: 16px; height: 16px; object-fit: contain; border-radius: 2px;">`;
+        title.innerText = '네이버 계정으로 로그인';
+        avatar.innerHTML = `<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYTGQvAcMGQ1WIoku5L0iw6j-why05sXnwKA&s" alt="Naver" style="width: 44px; height: 44px; object-fit: contain; border-radius: 8px;">`;
+      }
+
+      modal.style.display = 'flex';
+    }
+
+    function closeSocialModal() {
+      document.getElementById('social-modal').style.display = 'none';
+    }
+
+    function completeSocialLogin() {
+      let snsName = '';
+      let defaultEmail = '';
+
+      if (currentProvider === 'apple') {
+        snsName = '애플 테스터';
+        defaultEmail = 'apple_tester@apple.com';
+      } else if (currentProvider === 'google') {
+        snsName = '구글 테스터';
+        defaultEmail = 'google_tester@gmail.com';
+      } else if (currentProvider === 'naver') {
+        snsName = '네이버 테스터';
+        defaultEmail = 'naver_tester@naver.com';
+      }
+
+      localStorage.setItem('userEmail', defaultEmail);
+      localStorage.setItem('userName', snsName);
+      localStorage.setItem('isLoggedIn', 'true');
+      localStorage.setItem('loginType', currentProvider);
+
+      closeSocialModal();
+
       if (localStorage.getItem('fromSignup') === 'true') {
         localStorage.removeItem('fromSignup');
         location.href = 'welcome.html';
@@ -409,18 +574,214 @@
       height: 12px;
       background-color: #d1d9e0;
     }
-  
-    body, input, button, select, textarea {
+
+    body,
+    input,
+    button,
+    select,
+    textarea {
       font-family: 'Manrope', sans-serif;
       font-weight: 400;
       font-size: 16px;
     }
-    
-    .page-title, .login-title, .signup-title {
+
+    .page-title,
+    .login-title,
+    .signup-title {
       font-family: 'Jua', sans-serif;
       font-weight: 400;
       font-size: 22px;
     }
-</style>
+
+    /* 가상 소셜 로그인 모달 스타일 */
+    .social-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+
+    .social-modal-content {
+      background-color: #ffffff;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 350px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      animation: modalFadeIn 0.25s ease-out;
+    }
+
+    @keyframes modalFadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.92);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .social-modal-header {
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #edf2f7;
+    }
+
+    .modal-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      font-weight: 800;
+      color: #fff;
+      font-size: 14px;
+    }
+
+    .modal-logo.apple {
+      background-color: #000;
+      font-size: 16px;
+    }
+
+    .modal-logo.google {
+      background-color: #4285F4;
+    }
+
+    .modal-logo.naver {
+      background-color: #03C75A;
+    }
+
+    #modal-title {
+      font-size: 15px;
+      color: #333;
+      flex: 1;
+      margin-left: 10px;
+      font-family: 'Manrope', sans-serif;
+      font-weight: 700;
+    }
+
+    .close-modal-btn {
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: #a0aec0;
+      cursor: pointer;
+      line-height: 1;
+      padding: 0 4px;
+      transition: color 0.2s;
+    }
+
+    .close-modal-btn:hover {
+      color: #4a5568;
+    }
+
+    .social-modal-body {
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .user-avatar-area {
+      margin-bottom: 20px;
+    }
+
+    .user-avatar {
+      width: 64px;
+      height: 64px;
+      background-color: #edf2f7;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      margin: 0 auto 12px;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .demo-notice {
+      font-size: 13px;
+      color: #718096;
+      font-weight: 500;
+    }
+
+    .modal-info-box {
+      width: 100%;
+      background-color: #f7fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 24px;
+      text-align: left;
+      font-size: 13px;
+    }
+
+    .modal-info-box p {
+      margin-bottom: 6px;
+      color: #4a5568;
+      line-height: 1.4;
+    }
+
+    .info-desc {
+      color: #a0aec0 !important;
+      font-size: 11px;
+      margin-bottom: 0 !important;
+      line-height: 1.3;
+    }
+
+    .modal-submit-btn {
+      width: 100%;
+      height: 48px;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.1s;
+    }
+
+    .modal-submit-btn:active {
+      transform: scale(0.98);
+    }
+
+    .modal-submit-btn.apple {
+      background-color: #000;
+    }
+
+    .modal-submit-btn.apple:hover {
+      background-color: #222;
+    }
+
+    .modal-submit-btn.google {
+      background-color: #4285F4;
+    }
+
+    .modal-submit-btn.google:hover {
+      background-color: #357ae8;
+    }
+
+    .modal-submit-btn.naver {
+      background-color: #03C75A;
+    }
+
+    .modal-submit-btn.naver:hover {
+      background-color: #02b34f;
+    }
+  </style>
 </body>
+
 </html>
